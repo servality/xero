@@ -1,5 +1,6 @@
 {
   "name": "servality/xero",
+  "type": "library",
   "description": "Xero API wrapper",
   "keywords": ["api", "xero"],
   "license": "MIT",
@@ -17,7 +18,7 @@
   },
   "autoload": {
     "psr-4": {
-      "xero": "src/"
+      "Xero\\": "src/"
     }
   }
 }
