@@ -9,7 +9,7 @@ use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 class XeroApplication
 {
-    var $authentication = [
+    protected $authentication = [
         "consumer_key" => '',
         "consumer_secret" => '',
         'token'           => '',
@@ -19,7 +19,7 @@ class XeroApplication
         "signature_method" => Oauth1::SIGNATURE_METHOD_RSA
     ];
 
-    var $baseUri = 'https://api.xero.com/api.xro/2.0/';
+    protected $baseUri = 'https://api.xero.com/api.xro/2.0/';
 
     function __construct(array $auth)
     {
@@ -28,7 +28,7 @@ class XeroApplication
         }
     }
 
-    public function sendRequest($method, $resourcePath)
+    public function sendRequest($method, $resourcePath, $query = [])
     {
         $stack = HandlerStack::create();
 
@@ -46,7 +46,7 @@ class XeroApplication
             'Accept'     => 'application/json',
         ];
 
-        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers]);
+        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query]);
 
         return $response;
     }
