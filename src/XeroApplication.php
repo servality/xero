@@ -4,7 +4,6 @@ namespace Xero;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 
@@ -13,8 +12,6 @@ class XeroApplication
     var $authentication = [
         "consumer_key" => '',
         "consumer_secret" => '',
-        'token'           => '',
-        'token_secret'    => '',
         "private_key_file" => '',
         "private_key_passphrase" => '',
         "signature_method" => Oauth1::SIGNATURE_METHOD_RSA
@@ -24,10 +21,10 @@ class XeroApplication
 
     function __construct($auth)
     {
-        array_merge($this->authentication, $auth);
+        $this->authentication = $auth;
     }
 
-    public function sendRequest($method, $resourcePath)
+    public function sendRequest($resourcePath)
     {
         $stack = HandlerStack::create();
 
@@ -36,16 +33,10 @@ class XeroApplication
         $stack->push($middleware);
 
         $client = new Client([
-            'handler' => $stack,
-            'base_uri' => $this->baseUri
+            'handler' => $stack
         ]);
 
-        $headers = [
-            'User-Agent' => 'testing/1.0',
-            'Accept'     => 'application/json',
-        ];
-
-        $response = $client->request($method, $resourcePath, ['auth' => 'oauth']);
+        $response = $client->get($this->baseUri & $resourcePath, ['auth' => 'oauth']);
 
         return $response;
     }
