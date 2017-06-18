@@ -4,7 +4,6 @@ namespace Xero;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 
@@ -22,9 +21,11 @@ class XeroApplication
 
     var $baseUri = 'https://api.xero.com/api.xro/2.0/';
 
-    function __construct($auth)
+    function __construct(array $auth)
     {
-        array_merge($this->authentication, $auth);
+        foreach ($auth as $key => $value) {
+            $this->authentication[$key] = $value;
+        }
     }
 
     public function sendRequest($method, $resourcePath)
