@@ -1,18 +1,19 @@
 <?php
 
-use Xero\Invoices;
+/**
+ * Example Private Application
+ */
 
-function getInvoices(){
+use Xero\XeroApplication;
+use Xero\accounting\Invoices;
 
-    $authentication = [
-        "consumer_key" => '',
-        "consumer_secret" => '',
-        "private_key_passphrase" => '',
-    ];
 
-    $invoices = new Invoices($authentication);
+$auth = [
+    "consumer_key" => '',
+    "consumer_secret" => '',
+    "private_key_file" => '',
+];
 
-    return $invoices->get();
-}
+$xero = new \Xero\XeroApplication($auth);
 
-?>
+$invoices = $xero->invoices();

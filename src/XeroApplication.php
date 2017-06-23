@@ -6,10 +6,15 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
+use Xero\accounting\Accounting;
+use Xero\accounting\Invoices;
+
 
 class XeroApplication
 {
-    protected $authentication = [
+    private $invoices;
+
+    private $authentication = [
         "consumer_key" => '',
         "consumer_secret" => '',
         'token'           => '',
@@ -23,17 +28,19 @@ class XeroApplication
 
     function __construct(array $auth)
     {
+        //set $authentication values
         foreach ($auth as $key => $value) {
             $this->authentication[$key] = $value;
         }
+        //copy the consumer_key and consumer_secret tp token and token_secret respectively
+        $this->authentication['token'] = $this->authentication['consumer_key'];
+        $this->authentication['token_secret'] = $this->authentication['consumer_secret'];
     }
 
     public function sendRequest($method, $resourcePath, $query = [])
     {
         $stack = HandlerStack::create();
-
         $middleware = new Oauth1($this->authentication);
-
         $stack->push($middleware);
 
         $client = new Client([
@@ -49,5 +56,12 @@ class XeroApplication
         $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query]);
 
         return $response;
+    }
+
+    public function invoices(){
+        if(!is_a($this->invoices, 'Invoices')){
+            $this->invoices = new Invoices();
+        }
+        return $this->invoices;
     }
 }

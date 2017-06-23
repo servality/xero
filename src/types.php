@@ -1,0 +1,11 @@
+<?php
+
+//Account Class Types
+
+CONST ASSET = 'ASSET';
+CONST EQUITY = 'EQUITY';
+CONST EXPENSE = 'EXPENSE';
+CONST LIABILITY = 'LIABILITY';
+CONST REVENUE = 'REVENUE';
+
+//Account Types
