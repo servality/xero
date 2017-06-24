@@ -113,11 +113,11 @@ class Invoices extends Accounting
 
     public function addToQuery($parameter)
     {
-        if(!$this->parameter){
-            $this->parameter = '?'.$this->parameter.$parameter;
+        if(!$this->parameters){
+            $this->parameter = '?'.$this->parameters.$parameter;
             return;
         }
-        $this->parameter = '&'.$this->parameter.$parameter;
+        $this->parameter = '&'.$this->parameters.$parameter;
     }
 
     /**
