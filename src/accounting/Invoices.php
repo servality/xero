@@ -24,18 +24,18 @@ class Invoices extends Accounting
 
     public function modifiedAfter($timestamp)
     {
-        $this->addToQuery(['ModifiedAfter=' => $timestamp]);
+        $this->addToQuery(['ModifiedAfter' => $timestamp]);
         return $this;
     }
 
-    /**
+    /**a
      * @param string $ids
      * @return $this
      */
 
     public function ids(string $ids)
     {
-        $this->addToQuery(['IDs=' => $ids]); //CSV string
+        $this->addToQuery(['IDs' => $ids]); //CSV string
         return $this;
     }
 
@@ -46,7 +46,7 @@ class Invoices extends Accounting
 
     public function invoiceNumbers(string $invoiceNumbers)
     {
-        $this->addToQuery(['InvoiceNumbers=' => $invoiceNumbers]); //CSV string
+        $this->addToQuery(['InvoiceNumbers' => $invoiceNumbers]); //CSV string
         return $this;
     }
 
@@ -57,7 +57,7 @@ class Invoices extends Accounting
 
     public function contactIds(string $contactIds)
     {
-        $this->addToQuery(['ContactIDs=' => $contactIds]); //CSV string
+        $this->addToQuery(['ContactIDs' => $contactIds]); //CSV string
         return $this;
     }
 
@@ -68,7 +68,7 @@ class Invoices extends Accounting
 
     public function statuses(string $statuses)
     {
-        $this->addToQuery(['Statuses=' => $statuses]); //CSV string
+        $this->addToQuery(['Statuses' => $statuses]); //CSV string
         return $this;
     }
 
@@ -79,7 +79,7 @@ class Invoices extends Accounting
 
     public function where(string $where)
     {
-        $this->addToQuery(['where=' > $where]);
+        $this->addToQuery(['where' > $where]);
         return $this;
     }
 
@@ -103,7 +103,7 @@ class Invoices extends Accounting
 
     public function page(int $page)
     {
-        $this->addToQuery(['page=' => $page]);
+        $this->addToQuery(['page' => $page]);
         return $this;
     }
 
@@ -115,7 +115,7 @@ class Invoices extends Accounting
     public function get($identifier = null)  //Identifier can be either GUID (E.g 00000000-0000-0000-0000-00000000) or Invoice Number (E.g. INV-0154)
     {
         if ($identifier) {
-            return $this->sendRequest($this->auth, 'GET', 'invoices' . '/' . $identifier, '');
+            return $this->sendRequest($this->auth, 'GET', 'invoices/' . $identifier);
         }
         return $this->sendRequest($this->auth, 'GET', 'invoices', $this->parameters);
     }

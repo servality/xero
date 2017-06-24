@@ -21,6 +21,11 @@ class XeroApplication
 
     private $invoices;
 
+    /**
+     * XeroApplication constructor.
+     * @param array $auth
+     */
+
     function __construct(array $auth)
     {
         //set $authentication values
@@ -31,6 +36,10 @@ class XeroApplication
         $this->authentication['token'] = $this->authentication['consumer_key'];
         $this->authentication['token_secret'] = $this->authentication['consumer_secret'];
     }
+
+    /**
+     * @return Invoices
+     */
 
     public function invoices(){
         if(!is_a($this->invoices, 'Invoices')){
