@@ -44,6 +44,7 @@ class XeroApplication
                 foreach ($value as $oauth_key => $oauth_value){
                     $this->config['oauth'][$oauth_key] = $oauth_value;
                 }
+                continue;
             }
             $this->config[$key] = $value;
         }
