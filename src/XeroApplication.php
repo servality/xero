@@ -9,17 +9,10 @@ use Xero\PrivateRequest;
 
 class XeroApplication
 {
-    /*
-    private $authentication = [
-        "consumer_key" => '',
-        "consumer_secret" => '',
-        'token'           => '',
-        'token_secret'    => '',
-        "private_key_file" => '',
-        "private_key_passphrase" => '',
-        "signature_method" => Oauth1::SIGNATURE_METHOD_RSA
-    ];
-    */
+    /**
+     * Xero Request Configuration
+     * @var array
+     */
 
     private $config = [
         'oauth' => [
@@ -32,7 +25,7 @@ class XeroApplication
             "signature_method" => Oauth1::SIGNATURE_METHOD_RSA
         ],
         'response' => 'json', //json or xml
-        'user_agent' => ''
+        'user_agent' => '' //name of application
     ];
 
     private $invoices;
@@ -47,9 +40,9 @@ class XeroApplication
     {
         //set $configuration values
         foreach ($config as $key => $value) {
-            if($key = 'oauth'){
+            if($key == 'oauth'){
                 foreach ($value as $oauth_key => $oauth_value){
-                    $this->config[$oauth_key] = $oauth_value;
+                    $this->config['oauth'][$oauth_key] = $oauth_value;
                 }
             }
             $this->config[$key] = $value;
