@@ -10,6 +10,8 @@ class Accounting
 
         $request = new PrivateRequest($authentication);
 
-        return $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query);
+        $response = $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query);
+
+        return $response->getBody()->getContents();
     }
 }
