@@ -5,7 +5,7 @@ namespace Xero\accounting;
 class Invoices extends Accounting
 {
     private $auth;
-    private $parameters;
+
 
     /**
      * Invoices constructor.
@@ -24,7 +24,7 @@ class Invoices extends Accounting
 
     public function modifiedAfter($timestamp)
     {
-        $this->addToQuery('ModifiedAfter=' . $timestamp);
+        $this->addToQuery(['ModifiedAfter=' => $timestamp]);
         return $this;
     }
 
@@ -35,7 +35,7 @@ class Invoices extends Accounting
 
     public function ids(string $ids)
     {
-        $this->addToQuery('IDs=' . $ids); //CSV string
+        $this->addToQuery(['IDs=' => $ids]); //CSV string
         return $this;
     }
 
@@ -46,7 +46,7 @@ class Invoices extends Accounting
 
     public function invoiceNumbers(string $invoiceNumbers)
     {
-        $this->addToQuery('InvoiceNumbers=' . $invoiceNumbers); //CSV string
+        $this->addToQuery(['InvoiceNumbers=' => $invoiceNumbers]); //CSV string
         return $this;
     }
 
@@ -57,7 +57,7 @@ class Invoices extends Accounting
 
     public function contactIds(string $contactIds)
     {
-        $this->addToQuery('ContactIDs=' . $contactIds); //CSV string
+        $this->addToQuery(['ContactIDs=' => $contactIds]); //CSV string
         return $this;
     }
 
@@ -68,7 +68,7 @@ class Invoices extends Accounting
 
     public function statuses(string $statuses)
     {
-        $this->addToQuery('Statuses=' . $statuses); //CSV string
+        $this->addToQuery(['Statuses=' => $statuses]); //CSV string
         return $this;
     }
 
@@ -79,7 +79,7 @@ class Invoices extends Accounting
 
     public function where(string $where)
     {
-        $this->addToQuery('where=' . $where);
+        $this->addToQuery(['where=' > $where]);
         return $this;
     }
 
@@ -91,8 +91,8 @@ class Invoices extends Accounting
 
     public function orderBy(string $orderBy, string $direction = null)
     {
-        $orderParameter  = $direction ? 'order=' . $orderBy . ' ' . $direction : 'order=' . $orderBy;
-        $this->addToQuery($orderParameter);
+        $orderParameter = $direction ? $orderBy . ' ' . $direction : $orderBy;
+        $this->addToQuery(['order' => $orderParameter]);
         return $this;
     }
 
@@ -103,21 +103,8 @@ class Invoices extends Accounting
 
     public function page(int $page)
     {
-        $this->addToQuery('page=' . $page);
+        $this->addToQuery(['page=' => $page]);
         return $this;
-    }
-
-    /**
-     * @param $parameter
-     */
-
-    public function addToQuery($parameter)
-    {
-        if(!$this->parameters){
-            $this->parameter = '?'.$this->parameters.$parameter;
-            return;
-        }
-        $this->parameter = '&'.$this->parameters.$parameter;
     }
 
     /**

@@ -6,7 +6,20 @@ use Xero\PrivateRequest;
 
 class Accounting
 {
-    public function sendRequest($authentication, $method, $resourcePath, $query){
+    /**
+     * @param $parameter
+     */
+
+    protected $parameters = [];
+
+    protected function addToQuery(array $parameter)
+    {
+        $this->parameter = array_push($this->parameters, $parameter);
+        return;
+
+    }
+
+    protected function sendRequest($authentication, $method, $resourcePath, $query){
 
         $request = new PrivateRequest($authentication);
 
