@@ -20,16 +20,16 @@ class Accounting
     }
 
     /**
-     * @param array $authentication
+     * @param array $config
      * @param string $method
      * @param string $resourcePath
      * @param array $query
      * @return string
      */
 
-    protected function sendRequest(array $authentication, string $method, string $resourcePath, array $query = []){
+    protected function sendRequest(array $config, string $method, string $resourcePath, array $query = []){
 
-        $request = new PrivateRequest($authentication);
+        $request = new PrivateRequest($config);
 
         $response = $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query);
 

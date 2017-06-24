@@ -4,17 +4,17 @@ namespace Xero\accounting;
 
 class Invoices extends Accounting
 {
-    private $auth;
+    private $config;
 
 
     /**
      * Invoices constructor.
-     * @param $auth
+     * @param $config
      */
 
-    function __construct($auth)
+    function __construct($config)
     {
-        $this->auth = $auth;
+        $this->config = $config;
     }
 
     /**
@@ -115,8 +115,8 @@ class Invoices extends Accounting
     public function get($identifier = null)  //Identifier can be either GUID (E.g 00000000-0000-0000-0000-00000000) or Invoice Number (E.g. INV-0154)
     {
         if ($identifier) {
-            return $this->sendRequest($this->auth, 'GET', 'invoices/' . $identifier);
+            return $this->sendRequest($this->config, 'GET', 'invoices/' . $identifier);
         }
-        return $this->sendRequest($this->auth, 'GET', 'invoices', $this->parameters);
+        return $this->sendRequest($this->config, 'GET', 'invoices', $this->parameters);
     }
 }

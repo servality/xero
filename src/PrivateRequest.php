@@ -10,16 +10,16 @@ class PrivateRequest{
 
     protected $baseUri = 'https://api.xero.com/';
 
-    private $authentication;
+    private $config;
 
     /**
      * PrivateRequest constructor.
-     * @param array $authentication
+     * @param array $config
      */
 
-    function __construct(array $authentication)
+    function __construct(array $config)
     {
-        $this->authentication = $authentication;
+        $this->config = $config;
     }
 
     /**
@@ -32,7 +32,7 @@ class PrivateRequest{
     public function sendRequest(string $method, string $resourcePath, array $query = [])
     {
         $stack = HandlerStack::create();
-        $middleware = new Oauth1($this->authentication);
+        $middleware = new Oauth1($this->config['oauth']);
         $stack->push($middleware);
 
         $client = new Client([
@@ -41,8 +41,8 @@ class PrivateRequest{
         ]);
 
         $headers = [
-            'User-Agent' => 'testing/1.0',
-            'Accept'     => 'application/json',
+            'User-Agent' => $this->config['user_agent'],
+            'Accept'     => 'application/'.$this->config['response'],
         ];
 
         $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query]);
