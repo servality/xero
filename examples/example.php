@@ -5,8 +5,6 @@
  */
 
 use Xero\XeroApplication;
-use Xero\accounting\Invoices;
-
 
 $auth = [
     "consumer_key" => '',
@@ -14,6 +12,16 @@ $auth = [
     "private_key_file" => '',
 ];
 
-$xero = new \Xero\XeroApplication($auth);
+$xero = new XeroApplication($auth);
 
-$invoices = $xero->invoices();
+$invoices = $xero->invoices()->get();
+
+?>
+
+<html>
+    <head>
+    </head>
+    <body>
+        <sapn><?php var_dump($invoices); ?></sapn>
+    </body>
+</html>

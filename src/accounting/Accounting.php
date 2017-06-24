@@ -2,17 +2,14 @@
 
 namespace Xero\accounting;
 
+use Xero\PrivateRequest;
+
 class Accounting
 {
-    public function where(){
-        //perform some action
-        //return this
-        return $this;
-    }
+    public function sendRequest($authentication, $method, $resourcePath, $query){
 
-    public function get(){
-        //perform some action
-        //return some value
-        return 'get';
+        $request = new PrivateRequest($authentication);
+
+        return $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query);
     }
 }
