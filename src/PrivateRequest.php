@@ -9,11 +9,17 @@ use GuzzleHttp\Subscriber\Oauth\Oauth1;
 class PrivateRequest{
 
     protected $baseUri = 'https://api.xero.com/';
+    private $authentication;
 
-    public function sendRequest($authentication, $method, $resourcePath, $query = [])
+    function __construct($authentication)
+    {
+        $this->authentication = $authentication;
+    }
+
+    public function sendRequest($method, $resourcePath, $query = [])
     {
         $stack = HandlerStack::create();
-        $middleware = new Oauth1($authentication);
+        $middleware = new Oauth1($this->authentication);
         $stack->push($middleware);
 
         $client = new Client([
