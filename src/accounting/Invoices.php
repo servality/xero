@@ -4,8 +4,6 @@ namespace Xero\accounting;
 
 class Invoices extends Accounting
 {
-    private $config;
-
 
     /**
      * Invoices constructor.
@@ -14,7 +12,7 @@ class Invoices extends Accounting
 
     function __construct($config)
     {
-        $this->config = $config;
+        parent::__construct($config);
     }
 
     /**
@@ -115,8 +113,50 @@ class Invoices extends Accounting
     public function get($identifier = null)  //Identifier can be either GUID (E.g 00000000-0000-0000-0000-00000000) or Invoice Number (E.g. INV-0154)
     {
         if ($identifier) {
-            return $this->sendRequest($this->config, 'GET', 'invoices/' . $identifier);
+            return $this->sendRequest('GET', 'invoices/' . $identifier);
         }
-        return $this->sendRequest($this->config, 'GET', 'invoices', $this->parameters);
+        return $this->sendRequest('GET', 'invoices', $this->parameters);
+    }
+
+    /**
+     * @param $xml
+     * @return string
+     */
+
+    public function create($xml)
+    {
+        return $this->sendRequest('POST', 'invoices', '[]', '');
+    }
+
+    /**
+     * @param string $identifier
+     * @param $xml
+     * @return string
+     */
+
+    public function update(string $identifier, $xml)
+    {
+        return $this->sendRequest('POST', 'invoices/'.$identifier, '[]', '');
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $identifierType guid or number
+     * @return string
+     */
+
+    public function delete(string $identifier, string $identifierType = 'guid')
+    {
+        $this->voidOrDelete('DELETE', 'invoice', $identifier, $identifierType);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $identifierType
+     */
+
+    public function void(string $identifier, string $identifierType = 'guid')
+    {
+        $this->voidOrDelete('VOID', 'invoice', $identifier, $identifierType);
     }
 }
