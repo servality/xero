@@ -26,10 +26,11 @@ class PrivateRequest{
      * @param string $method
      * @param string $resourcePath
      * @param array $query
+     * @param array $body
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
 
-    public function sendRequest(string $method, string $resourcePath, array $query = [])
+    public function sendRequest(string $method, string $resourcePath, array $query = [], $data = null)
     {
         $stack = HandlerStack::create();
         $middleware = new Oauth1($this->config['oauth']);
@@ -45,7 +46,20 @@ class PrivateRequest{
             'Accept'     => 'application/'.$this->config['response'],
         ];
 
-        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query]);
+        if($method == 'POST'){
+            $postHeaders = [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Encoding' => 'UTF-8'
+            ];
+
+            $headers = array_merge($headers, $postHeaders);
+        }
+
+        $formParameters = [
+            'xml' => $data
+        ];
+
+        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query, 'form_params'=> $formParameters]);
 
         return $response;
     }

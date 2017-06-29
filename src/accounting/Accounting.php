@@ -30,14 +30,15 @@ class Accounting
      * @param string $method
      * @param string $resourcePath
      * @param array $query
+     * @param string $xml
      * @return string
      */
 
-    protected function sendRequest(string $method, string $resourcePath, array $query = [], $xml = null){
+    protected function sendRequest(string $method, string $resourcePath, array $query = [], string $xml = null){
 
         $request = new PrivateRequest($this->config);
 
-        $response = $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query);
+        $response = $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query, $xml);
 
         return $response->getBody()->getContents();
     }
@@ -59,11 +60,11 @@ class Accounting
 
         $xml = '
             <'.$resourceType.'>
-              <'.$IdType.'>'.$identifier.'</'.$IdType.'>
-              <Status>'.$action.'</Status>
+            <'.$IdType.'>'.$identifier.'</'.$IdType.'>
+            <Status>'.$action.'</Status>
             </'.$resourceType.'>
         ';
 
-        return $this->sendRequest($this->config, 'POST', 'invoices/'.$identifier, '[]', $xml);
+        return $this->sendRequest('POST', $resourceType.'s/'.$identifier, [], $xml);
     }
 }
