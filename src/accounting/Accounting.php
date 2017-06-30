@@ -10,7 +10,7 @@ class Accounting
     private $config;
 
     /**
-     * @param array $parameter
+     * @param array $config
      */
 
     function __construct($config)
@@ -22,11 +22,9 @@ class Accounting
     {
         $this->parameters = array_merge($this->parameters, $parameter);
         return;
-
     }
 
     /**
-     * @param array $config
      * @param string $method
      * @param string $resourcePath
      * @param array $query
@@ -41,6 +39,65 @@ class Accounting
         $response = $request->sendRequest($method, 'api.xro/2.0/'.$resourcePath, $query, $xml);
 
         return $response->getBody()->getContents();
+    }
+
+    /**
+     * @param $timestamp
+     * @return $this
+     */
+
+    public function modifiedAfter($timestamp)
+    {
+        $this->addToQuery(['ModifiedAfter' => $timestamp]);
+        return $this;
+    }
+
+    /**
+     * @param string $ids
+     * @return $this
+     */
+
+    public function ids(string $ids)
+    {
+        $this->addToQuery(['IDs' => $ids]); //CSV string
+        return $this;
+    }
+
+    /**
+     * @param string $where
+     * @return $this
+     */
+
+    public function where(string $where)
+    {
+        $this->addToQuery(['where' => $where]);
+        return $this;
+    }
+
+    /**
+     * Order results ASC or DESC
+     * @param string $orderBy
+     * @param string|null $direction
+     * @return $this
+     */
+
+    public function orderBy(string $orderBy, string $direction = null)
+    {
+        $orderParameter = $direction ? $orderBy . ' ' . $direction : $orderBy;
+        $this->addToQuery(['order' => $orderParameter]);
+        return $this;
+    }
+
+    /**
+     * Return paged results - 100 items per page
+     * @param int $page
+     * @return $this
+     */
+
+    public function page(int $page)
+    {
+        $this->addToQuery(['page' => $page]);
+        return $this;
     }
 
     /**

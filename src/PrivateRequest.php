@@ -26,7 +26,7 @@ class PrivateRequest{
      * @param string $method
      * @param string $resourcePath
      * @param array $query
-     * @param array $body
+     * @param array $data
      * @return mixed|\Psr\Http\Message\ResponseInterface
      */
 

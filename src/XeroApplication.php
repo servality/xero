@@ -2,6 +2,7 @@
 
 namespace Xero;
 
+use Xero\accounting\Contacts;
 use Xero\accounting\Invoices;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use Xero\PrivateRequest;
@@ -29,10 +30,10 @@ class XeroApplication
     ];
 
     private $invoices;
+    private $contacts;
 
     /**
      * XeroApplication constructor.
-     * @param array $authentication
      * @param array $config
      */
 
@@ -62,5 +63,16 @@ class XeroApplication
             $this->invoices = new Invoices($this->config);
         }
         return $this->invoices;
+    }
+
+    /**
+     * @return Contacts
+     */
+
+    public function contacts(){
+        if(!is_a($this->contacts, 'Contacts')){
+            $this->invoices = new Contacts($this->config);
+        }
+        return $this->contacts;
     }
 }

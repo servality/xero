@@ -16,28 +16,6 @@ class Invoices extends Accounting
     }
 
     /**
-     * @param $timestamp
-     * @return $this
-     */
-
-    public function modifiedAfter($timestamp)
-    {
-        $this->addToQuery(['ModifiedAfter' => $timestamp]);
-        return $this;
-    }
-
-    /**a
-     * @param string $ids
-     * @return $this
-     */
-
-    public function ids(string $ids)
-    {
-        $this->addToQuery(['IDs' => $ids]); //CSV string
-        return $this;
-    }
-
-    /**
      * @param string $invoiceNumbers
      * @return $this
      */
@@ -71,41 +49,6 @@ class Invoices extends Accounting
     }
 
     /**
-     * @param string $where
-     * @return $this
-     */
-
-    public function where(string $where)
-    {
-        $this->addToQuery(['where' > $where]);
-        return $this;
-    }
-
-    /**
-     * @param string $orderBy
-     * @param string|null $direction
-     * @return $this
-     */
-
-    public function orderBy(string $orderBy, string $direction = null)
-    {
-        $orderParameter = $direction ? $orderBy . ' ' . $direction : $orderBy;
-        $this->addToQuery(['order' => $orderParameter]);
-        return $this;
-    }
-
-    /**
-     * @param int $page
-     * @return $this
-     */
-
-    public function page(int $page)
-    {
-        $this->addToQuery(['page' => $page]);
-        return $this;
-    }
-
-    /**
      * @param null $identifier
      * @return string
      */
@@ -113,30 +56,30 @@ class Invoices extends Accounting
     public function get($identifier = null)  //Identifier can be either GUID (E.g 00000000-0000-0000-0000-00000000) or Invoice Number (E.g. INV-0154)
     {
         if ($identifier) {
-            return $this->sendRequest('GET', 'invoices/' . $identifier);
+            return $this->sendRequest('GET', 'Invoices/' . $identifier);
         }
-        return $this->sendRequest('GET', 'invoices', $this->parameters);
+        return $this->sendRequest('GET', 'Invoices', $this->parameters);
     }
 
     /**
-     * @param $xml
+     * @param string $xml
      * @return string
      */
 
-    public function create($xml)
+    public function create(string $xml)
     {
-        return $this->sendRequest('POST', 'invoices', '[]', '');
+        return $this->sendRequest('POST', 'Invoices', [], '');
     }
 
     /**
      * @param string $identifier
-     * @param $xml
+     * @param string $xml
      * @return string
      */
 
-    public function update(string $identifier, $xml)
+    public function update(string $identifier, string $xml)
     {
-        return $this->sendRequest('POST', 'invoices/'.$identifier, '[]', '');
+        return $this->sendRequest('POST', 'Invoices/'.$identifier, [], '');
     }
 
     /**
@@ -147,7 +90,7 @@ class Invoices extends Accounting
 
     public function delete(string $identifier, string $identifierType = 'guid')
     {
-        $this->voidOrDelete('DELETE', 'invoice', $identifier, $identifierType);
+        $this->voidOrDelete('DELETE', 'Invoice', $identifier, $identifierType);
     }
 
     /**
@@ -157,6 +100,6 @@ class Invoices extends Accounting
 
     public function void(string $identifier, string $identifierType = 'guid')
     {
-        $this->voidOrDelete('VOID', 'invoice', $identifier, $identifierType);
+        $this->voidOrDelete('VOID', 'Invoice', $identifier, $identifierType);
     }
 }
