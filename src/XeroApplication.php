@@ -7,7 +7,10 @@ use Xero\accounting\Invoices;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use Xero\PrivateRequest;
 
-
+/**
+ * Class XeroApplication
+ * @package Xero
+ */
 class XeroApplication
 {
     /**
@@ -29,8 +32,42 @@ class XeroApplication
         'user_agent' => '' //name of application
     ];
 
-    private $invoices;
+    private $accounts;
+    private $bankTransactions;
+    private $bankTransfers;
+    private $brandingThemes;
+    private $contactGroups;
     private $contacts;
+    private $creditNotes;
+    private $currencies;
+    private $employees;
+    private $expenseClaims;
+    private $invoiceReminders;
+    private $invoices;
+    private $items;
+    private $journals;
+    private $linkedTransactions;
+    private $manualJournals;
+    private $organisation;
+    private $overPayments;
+    private $payments;
+    private $purchaseOrders;
+    private $receipts;
+    private $repeatingInvoices;
+    private $taxRates;
+    private $trackingCategories;
+    private $users;
+    private $reportAgedPayableByContact;
+    private $reportAgedReceivableByContact;
+    private $reportBalanceSheet;
+    private $reportBankStatement;
+    private $reportBankSummary;
+    private $reportBASReport;
+    private $reportBudgetSummary;
+    private $reportExecutiveSummary;
+    private $reportGSTReport;
+    private $reportProfitAndLoss;
+    private $reportTrialBalance;
 
     /**
      * XeroApplication constructor.
