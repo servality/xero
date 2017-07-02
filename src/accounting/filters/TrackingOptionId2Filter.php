@@ -7,7 +7,7 @@ namespace Xero\accounting\filters;
  * Interface TrackingOptionId2
  * @package Xero\accounting\filters
  */
-interface TrackingOptionId2
+interface TrackingOptionId2Filter
 {
     /**
      * @param string $id

@@ -7,7 +7,7 @@ namespace Xero\accounting\filters;
  * Interface Status
  * @package Xero\accounting\filters
  */
-interface Status
+interface StatusFilter
 {
     /**
      * @param $status

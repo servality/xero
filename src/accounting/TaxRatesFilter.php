@@ -3,11 +3,13 @@
 namespace Xero\accounting;
 
 use Xero\accounting\filters\OrderByFilter;
+use Xero\accounting\filters\TaxTypeFilter;
 use Xero\accounting\filters\WhereFilter;
 
-class RepeatingInvoices extends AccountingBase implements
+class TaxRatesFilter extends AccountingBase implements
     WhereFilter,
-    OrderByFilter
+    OrderByFilter,
+    TaxTypeFilter
 {
 
     function __construct($config)
@@ -22,6 +24,13 @@ class RepeatingInvoices extends AccountingBase implements
         return $this;
     }
 
+    public function taxType($type)
+    {
+        $this->addToQuery($this->taxTypeParameter($type));
+        
+        return $this;
+    }
+
     public function where(string $where)
     {
         $this->addToQuery($this->whereParameter($where));
@@ -29,11 +38,8 @@ class RepeatingInvoices extends AccountingBase implements
         return $this;
     }
 
-    public function get($identifier = null)
+    public function get()
     {
-        if ($identifier) {
-            return $this->sendRequest('GET', 'RepeatingInvoices/' . $identifier);
-        }
-        return $this->sendRequest('GET', 'RepeatingInvoices');
+        return $this->sendRequest('GET', 'TaxRates');
     }
 }

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michael
- * Date: 1/07/2017
- * Time: 12:03 PM
- */
 
 namespace Xero\accounting;
 
@@ -21,4 +15,44 @@ class CreditNotes extends AccountingBase implements
     PageFilter
 {
 
+    function __construct($config)
+    {
+        parent::__construct($config);
+    }
+
+    public function modifiedAfter(string $timestamp)
+    {
+        $this->addToHeaders($this->modifiedAfterHeader($timestamp));
+
+        return $this;
+    }
+
+    public function orderBy(string $orderBy, string $direction = null)
+    {
+        $this->addToQuery($this->orderParameter($orderBy, $direction));
+
+        return $this;
+    }
+
+    public function page(int $page)
+    {
+        $this->addToQuery($this->pageParameter($page));
+
+        return $this;
+    }
+
+    public function where(string $where)
+    {
+        $this->addToQuery($this->whereParameter($where));
+
+        return $this;
+    }
+
+    public function get($identifier = null)
+    {
+        if ($identifier) {
+            return $this->sendRequest('GET', 'CreditNotes/' . $identifier);
+        }
+        return $this->sendRequest('GET', 'CreditNotes');
+    }
 }

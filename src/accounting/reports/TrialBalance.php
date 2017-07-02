@@ -11,4 +11,27 @@ class TrialBalance extends AccountingBase implements
     PaymentsOnlyFilter
 {
 
+    function __construct(array $config)
+    {
+        parent::__construct($config);
+    }
+
+    public function date($date)
+    {
+        $this->addToQuery($this->dateParameter($date));
+
+        return $this;
+    }
+
+    public function paymentsOnly(bool $paymentsOnly = true)
+    {
+        $this->addToQuery($this->paymentsOnlyParameter($paymentsOnly));
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->sendRequest('GET', 'Reports/TrialBalance');
+    }
 }

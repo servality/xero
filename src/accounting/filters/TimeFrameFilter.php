@@ -4,14 +4,14 @@ namespace Xero\accounting\filters;
 
 
 /**
- * Interface Periods
+ * Interface TimeFrame
  * @package Xero\accounting\filters
  */
-interface Periods
+interface TimeFrameFilter
 {
     /**
-     * @param int $periods
+     * @param int $timeFrame
      * @return mixed
      */
-    public function periods(int $periods);
+    public function timeFrame(int $timeFrame);
 }

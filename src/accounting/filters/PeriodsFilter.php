@@ -4,14 +4,14 @@ namespace Xero\accounting\filters;
 
 
 /**
- * Interface ContactIDs
+ * Interface Periods
  * @package Xero\accounting\filters
  */
-interface ContactIDs
+interface PeriodsFilter
 {
     /**
-     * @param string $ids
+     * @param int $periods
      * @return mixed
      */
-    public function contactIds(string $ids);
+    public function periods(int $periods);
 }

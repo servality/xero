@@ -1,6 +1,7 @@
 <?php
 namespace Xero\accounting;
 
+use Xero\accounting\filters\AccountingFilterHelper;
 use Xero\PrivateRequest;
 
 class AccountingBase
@@ -8,6 +9,8 @@ class AccountingBase
     protected $parameters = [];
     protected $additionalHeaders = [];
     private $config;
+
+    use AccountingFilterHelper;
 
     /**
      * @param array $config

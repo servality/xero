@@ -11,4 +11,28 @@ class BankSummary extends AccountingBase implements
     ToDateFilter
 {
 
+    function __construct(array $config)
+    {
+        parent::__construct($config);
+    }
+
+    public function fromDate($date)
+    {
+        $this->addToQuery($this->fromDateParameter($date));
+
+        return $this;
+    }
+
+    public function toDate($date)
+    {
+        $this->addToQuery($this->toDateParameter($date));
+
+        return $this;
+    }
+
+    public function get()
+    {
+        return $this->sendRequest('GET', 'Reports/BankSummary');
+    }
+
 }

@@ -7,7 +7,7 @@ namespace Xero\accounting\filters;
  * Interface TaxType
  * @package Xero\accounting\filters
  */
-interface TaxType
+interface TaxTypeFilter
 {
     const OUTPUT = 'OUTPUT';
     const INPUT = 'INPUT';

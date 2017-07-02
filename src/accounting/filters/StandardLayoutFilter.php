@@ -13,5 +13,5 @@ interface StandardLayoutFilter
      * @param bool $standardLayout
      * @return mixed
      */
-    public function standardLayout(bool $standardLayout);
+    public function standardLayout(bool $standardLayout = true);
 }

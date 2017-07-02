@@ -3,22 +3,30 @@
 namespace Xero\accounting\reports;
 
 use Xero\accounting\AccountingBase;
+use Xero\accounting\filters\DateFilter;
 use Xero\accounting\filters\FromDateFilter;
 use Xero\accounting\filters\ToDateFilter;
 
-class BankStatement extends AccountingBase implements
+class AgedPayablesByContact extends AccountingBase implements
+    DateFilter,
     FromDateFilter,
     ToDateFilter
 {
-
     function __construct(array $config)
     {
         parent::__construct($config);
     }
 
-    private function bankAccountId(string $id)
+    private function contactId(string $id)
     {
-        $this->addToQuery($this->bankAccountIdParameter($id));
+        $this->addToQuery($this->contactIdParameter($id));
+
+        return $this;
+    }
+
+    public function date($date)
+    {
+        $this->addToQuery($this->dateParameter($date));
 
         return $this;
     }
@@ -37,10 +45,10 @@ class BankStatement extends AccountingBase implements
         return $this;
     }
 
-    public function get(string $bankAccountID)
+    public function get(string $contactID)
     {
-        $this->bankAccountId($bankAccountID);
+        $this->contactId($contactID);
 
-        return $this->sendRequest('GET', 'Reports/BankStatement');
+        return $this->sendRequest('GET', 'Reports/AgedPayablesByContact');
     }
 }

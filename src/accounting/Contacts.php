@@ -2,7 +2,6 @@
 
 namespace Xero\accounting;
 
-use Xero\accounting\filters\AccountingFilterHelper;
 use Xero\accounting\filters\IdsFilter;
 use Xero\accounting\filters\IncludeArchivedFilter;
 use Xero\accounting\filters\ModifiedAfterFilter;
@@ -22,13 +21,10 @@ class Contacts extends AccountingBase implements
     IdsFilter,
     IncludeArchivedFilter
 {
-    use AccountingFilterHelper;
-
     /**
      * Contacts constructor.
      * @param $config
      */
-
     function __construct($config)
     {
         parent::__construct($config);
@@ -38,7 +34,6 @@ class Contacts extends AccountingBase implements
      * @param null $identifier
      * @return string
      */
-
     public function get($identifier = null)
     {
         if ($identifier) {
@@ -51,7 +46,6 @@ class Contacts extends AccountingBase implements
      * @param string $xml
      * @return string
      */
-
     public function create(string $xml)
     {
         return $this->sendRequest('POST', 'Contacts', $xml);
@@ -62,7 +56,6 @@ class Contacts extends AccountingBase implements
      * @param string $xml
      * @return string
      */
-
     public function update(string $identifier, string $xml)
     {
         return $this->sendRequest('POST', 'Contacts/'.$identifier, $xml);

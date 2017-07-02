@@ -2,8 +2,7 @@
 
 namespace Xero\accounting;
 
-use Xero\accounting\filters\AccountingFilterHelper;
-use Xero\accounting\filters\ContactIDs;
+use Xero\accounting\filters\ContactIDsFilter;
 use Xero\accounting\filters\IdsFilter;
 use Xero\accounting\filters\InvoiceNumbersFilter;
 use Xero\accounting\filters\ModifiedAfterFilter;
@@ -19,11 +18,9 @@ class Invoices extends AccountingBase implements
     PageFilter,
     IdsFilter,
     InvoiceNumbersFilter,
-    ContactIDs,
+    ContactIDsFilter,
     StatusesFilter
 {
-    use AccountingFilterHelper;
-
     /**
      * Invoices constructor.
      * @param $config
@@ -31,57 +28,6 @@ class Invoices extends AccountingBase implements
     function __construct($config)
     {
         parent::__construct($config);
-    }
-
-    /**
-     * @param null $identifier
-     * @return string
-     */
-    public function get($identifier = null)
-    {
-        if ($identifier) {
-            return $this->sendRequest('GET', 'Invoices/' . $identifier);
-        }
-
-        return $this->sendRequest('GET', 'Invoices');
-    }
-
-    /**
-     * @param string $xml
-     * @return string
-     */
-    public function create(string $xml)
-    {
-        return $this->sendRequest('POST', 'Invoices', '');
-    }
-
-    /**
-     * @param string $identifier
-     * @param string $xml
-     * @return string
-     */
-    public function update(string $identifier, string $xml)
-    {
-        return $this->sendRequest('POST', 'Invoices/' . $identifier, '');
-    }
-
-    /**
-     * @param string $identifier
-     * @param string $identifierType guid or number
-     * @return string
-     */
-    public function delete(string $identifier, string $identifierType = 'guid')
-    {
-        return $this->voidOrDelete('DELETE', 'Invoice', $identifier, $identifierType);
-    }
-
-    /**
-     * @param string $identifier
-     * @param string $identifierType
-     */
-    public function void(string $identifier, string $identifierType = 'guid')
-    {
-        $this->voidOrDelete('VOID', 'Invoice', $identifier, $identifierType);
     }
 
     /**
@@ -171,5 +117,56 @@ class Invoices extends AccountingBase implements
         $this->addToQuery($this->statusesParameter($statuses));
 
         return $this;
+    }
+
+    /**
+     * @param null $identifier
+     * @return string
+     */
+    public function get($identifier = null)
+    {
+        if ($identifier) {
+            return $this->sendRequest('GET', 'Invoices/' . $identifier);
+        }
+
+        return $this->sendRequest('GET', 'Invoices');
+    }
+
+    /**
+     * @param string $xml
+     * @return string
+     */
+    public function create(string $xml)
+    {
+        return $this->sendRequest('POST', 'Invoices', $xml);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $xml
+     * @return string
+     */
+    public function update(string $identifier, string $xml)
+    {
+        return $this->sendRequest('POST', 'Invoices/' . $identifier, $xml);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $identifierType guid or number
+     * @return string
+     */
+    public function delete(string $identifier, string $identifierType = 'guid')
+    {
+        return $this->voidOrDelete('DELETE', 'Invoice', $identifier, $identifierType);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $identifierType
+     */
+    public function void(string $identifier, string $identifierType = 'guid')
+    {
+        $this->voidOrDelete('VOID', 'Invoice', $identifier, $identifierType);
     }
 }

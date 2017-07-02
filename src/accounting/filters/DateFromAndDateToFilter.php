@@ -7,7 +7,7 @@ namespace Xero\accounting\filters;
  * Interface DateFromAndDateTo
  * @package Xero\accounting\filters
  */
-interface DateFromAndDateTo
+interface DateFromAndDateToFilter
 {
     /**
      * @param $dateFrom

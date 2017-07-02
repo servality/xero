@@ -4,14 +4,14 @@ namespace Xero\accounting\filters;
 
 
 /**
- * Interface TrackingOptionId1
+ * Interface TrackingOptionId
  * @package Xero\accounting\filters
  */
-interface TrackingOptionId1
+interface TrackingOptionIdFilter
 {
     /**
      * @param string $id
      * @return mixed
      */
-    public function trackingOptionId1(string $id);
+    public function trackingOptionId(string $id);
 }

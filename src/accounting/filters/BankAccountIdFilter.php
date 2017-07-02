@@ -7,7 +7,7 @@ namespace Xero\accounting\filters;
  * Interface BankAccountId
  * @package Xero\accounting\filters
  */
-interface BankAccountId
+interface BankAccountIdFilter
 {
     /**
      * @param string $id

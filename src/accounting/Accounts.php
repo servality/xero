@@ -2,7 +2,6 @@
 
 namespace Xero\accounting;
 
-use Xero\accounting\filters\AccountingFilterHelper;
 use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
 use Xero\accounting\filters\WhereFilter;
@@ -16,8 +15,6 @@ class Accounts extends AccountingBase implements
     WhereFilter,
     OrderByFilter
 {
-    use AccountingFilterHelper;
-
     /**
      * Accounts constructor.
      * @param array $config

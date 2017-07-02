@@ -240,6 +240,14 @@ trait AccountingFilterHelper
      * @param string $id
      * @return array
      */
+    protected function trackingCategoryId2Parameter(string $id){
+        return ['trackingCategoryID2' => $id];
+    }
+
+    /**
+     * @param string $id
+     * @return array
+     */
     protected function trackingOptionIdParameter(string $id){
         return ['trackingOptionID' => $id];
     }

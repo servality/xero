@@ -4,14 +4,14 @@ namespace Xero\accounting\filters;
 
 
 /**
- * Interface TimeFrame
+ * Interface ContactIDs
  * @package Xero\accounting\filters
  */
-interface TimeFrame
+interface ContactIDsFilter
 {
     /**
-     * @param int $timeFrame
+     * @param string $ids
      * @return mixed
      */
-    public function timeFrame(int $timeFrame);
+    public function contactIds(string $ids);
 }
