@@ -58,27 +58,21 @@ class AccountingBase
     }
 
     /**
-     * @param string $action
      * @param string $resourceType
      * @param string $identifier
-     * @param string $identifierType
-     * @return string
+     * @param string $status
      */
 
-    protected function voidOrDelete(string $action, string $resourceType, string $identifier, string $identifierType = 'guid')
-    {
+    protected function updateStatus(string $resourceType, string $identifier, string $status){
 
-        $IdType = $identifierType == 'number' ? 'InvoiceNumber' : 'InvoiceID';
-        $resourceType = ucfirst(strtolower($resourceType));
-        $action = strtoupper($action);
+        $statusTag = $resourceType == 'Contact' ? 'ContactStatus' : 'Status';
+        $resourcePath = $resourceType == 'TrackingCategory' ? 'TrackingCategories' : $resourceType.'s';
 
         $xml = '
-            <'.$resourceType.'>
-            <'.$IdType.'>'.$identifier.'</'.$IdType.'>
-            <Status>'.$action.'</Status>
-            </'.$resourceType.'>
-        ';
+        <'.$resourceType.'>
+            <'.$statusTag.'>'.$status.'<'.$statusTag.'>
+        </'.$resourceType.'>';
 
-        return $this->sendRequest('POST', $resourceType.'s/'.$identifier, $xml);
+        return $this->sendRequest('POST', $resourcePath.'/'.$identifier, $xml);
     }
 }

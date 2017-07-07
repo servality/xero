@@ -84,4 +84,8 @@ class Accounts extends AccountingBase implements
     {
 
     }
+
+    public function archive(string $identifier){
+        return $this->updateStatus('Account', $identifier, 'ARCHIVED');
+    }
 }
