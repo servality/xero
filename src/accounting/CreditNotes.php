@@ -6,13 +6,15 @@ namespace Xero\accounting;
 use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
 use Xero\accounting\filters\PageFilter;
+use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
 class CreditNotes extends AccountingBase implements
     ModifiedAfterFilter,
     WhereFilter,
     OrderByFilter,
-    PageFilter
+    PageFilter,
+    SummarizeErrors
 {
 
     function __construct($config)
@@ -44,6 +46,17 @@ class CreditNotes extends AccountingBase implements
     public function where(string $where)
     {
         $this->addToQuery($this->whereParameter($where));
+
+        return $this;
+    }
+
+    /**
+     * @param bool $summarizeErrors
+     * @return $this
+     */
+    public function SummarizeErrors(bool $summarizeErrors = false)
+    {
+        $this->addToQuery($this->summarizeErrorsParameter($summarizeErrors));
 
         return $this;
     }

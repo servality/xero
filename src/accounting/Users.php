@@ -6,17 +6,29 @@ use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
 use Xero\accounting\filters\WhereFilter;
 
+/**
+ * Class Users
+ * @package Xero\accounting
+ */
 class Users extends AccountingBase implements
     ModifiedAfterFilter,
     WhereFilter,
     OrderByFilter
 {
 
+    /**
+     * Users constructor.
+     * @param array $config
+     */
     function __construct($config)
     {
         parent::__construct($config);
     }
 
+    /**
+     * @param string $timestamp
+     * @return $this
+     */
     public function modifiedAfter(string $timestamp)
     {
         $this->addToHeaders($this->modifiedAfterHeader($timestamp));
@@ -24,6 +36,11 @@ class Users extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param string $orderBy
+     * @param string|null $direction
+     * @return $this
+     */
     public function orderBy(string $orderBy, string $direction = null)
     {
         $this->addToQuery($this->orderParameter($orderBy, $direction));
@@ -31,6 +48,10 @@ class Users extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param string $where
+     * @return $this
+     */
     public function where(string $where)
     {
         $this->addToQuery($this->whereParameter($where));
@@ -38,6 +59,10 @@ class Users extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param null $identifier
+     * @return string
+     */
     public function get($identifier = null)
     {
         if ($identifier) {

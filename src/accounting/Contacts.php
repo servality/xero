@@ -7,6 +7,7 @@ use Xero\accounting\filters\IncludeArchivedFilter;
 use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
 use Xero\accounting\filters\PageFilter;
+use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
 /**
@@ -19,7 +20,8 @@ class Contacts extends AccountingBase implements
     OrderByFilter,
     PageFilter,
     IdsFilter,
-    IncludeArchivedFilter
+    IncludeArchivedFilter,
+    SummarizeErrors
 {
     /**
      * Contacts constructor.
@@ -28,37 +30,6 @@ class Contacts extends AccountingBase implements
     function __construct($config)
     {
         parent::__construct($config);
-    }
-
-    /**
-     * @param null $identifier
-     * @return string
-     */
-    public function get($identifier = null)
-    {
-        if ($identifier) {
-            return $this->sendRequest('GET', 'Contacts/' . $identifier);
-        }
-        return $this->sendRequest('GET', 'Contacts');
-    }
-
-    /**
-     * @param string $xml
-     * @return string
-     */
-    public function create(string $xml)
-    {
-        return $this->sendRequest('POST', 'Contacts', $xml);
-    }
-
-    /**
-     * @param string $identifier
-     * @param string $xml
-     * @return string
-     */
-    public function update(string $identifier, string $xml)
-    {
-        return $this->sendRequest('POST', 'Contacts/'.$identifier, $xml);
     }
 
     /**
@@ -121,5 +92,47 @@ class Contacts extends AccountingBase implements
     {
         $this->addToQuery($this->whereParameter($where));
         return $this;
+    }
+
+    /**
+     * @param bool $summarizeErrors
+     * @return $this
+     */
+    public function SummarizeErrors(bool $summarizeErrors = false)
+    {
+        $this->addToQuery($this->summarizeErrorsParameter($summarizeErrors));
+
+        return $this;
+    }
+
+    /**
+     * @param null $identifier
+     * @return string
+     */
+    public function get($identifier = null)
+    {
+        if ($identifier) {
+            return $this->sendRequest('GET', 'Contacts/' . $identifier);
+        }
+        return $this->sendRequest('GET', 'Contacts');
+    }
+
+    /**
+     * @param string $xml
+     * @return string
+     */
+    public function create(string $xml)
+    {
+        return $this->sendRequest('POST', 'Contacts', $xml);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $xml
+     * @return string
+     */
+    public function update(string $identifier, string $xml)
+    {
+        return $this->sendRequest('POST', 'Contacts/'.$identifier, $xml);
     }
 }

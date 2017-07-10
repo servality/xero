@@ -12,7 +12,7 @@ trait AccountingFilterHelper
      * @param string $timestamp
      * @return array
      */
-    public function modifiedAfterHeader(string $timestamp){
+    protected function modifiedAfterHeader(string $timestamp){
         return ['If-Modified-Since' => $timestamp];
     }
 
@@ -250,5 +250,13 @@ trait AccountingFilterHelper
      */
     protected function trackingOptionIdParameter(string $id){
         return ['trackingOptionID' => $id];
+    }
+
+    /**
+     * @param bool $summarizeErrors
+     * @return array
+     */
+    protected function summarizeErrorsParameter(bool $summarizeErrors){
+        return ['summarizeErrors' => $summarizeErrors];
     }
 }

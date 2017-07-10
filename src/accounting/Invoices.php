@@ -9,6 +9,7 @@ use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
 use Xero\accounting\filters\PageFilter;
 use Xero\accounting\filters\StatusesFilter;
+use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
 class Invoices extends AccountingBase implements
@@ -19,7 +20,8 @@ class Invoices extends AccountingBase implements
     IdsFilter,
     InvoiceNumbersFilter,
     ContactIDsFilter,
-    StatusesFilter
+    StatusesFilter,
+    SummarizeErrors
 {
     /**
      * Invoices constructor.
@@ -120,6 +122,17 @@ class Invoices extends AccountingBase implements
     }
 
     /**
+     * @param bool $summarizeErrors
+     * @return $this
+     */
+    public function SummarizeErrors(bool $summarizeErrors = false)
+    {
+        $this->addToQuery($this->summarizeErrorsParameter($summarizeErrors));
+
+        return $this;
+    }
+
+    /**
      * @param null $identifier
      * @return string
      */
@@ -153,20 +166,19 @@ class Invoices extends AccountingBase implements
 
     /**
      * @param string $identifier
-     * @param string $identifierType guid or number
      * @return string
      */
-    public function delete(string $identifier, string $identifierType = 'guid')
+    public function delete(string $identifier)
     {
-        return $this->voidOrDelete('DELETE', 'Invoice', $identifier, $identifierType);
+        return $this->updateStatus('Invoice', $identifier, 'DELETED');
     }
 
     /**
      * @param string $identifier
-     * @param string $identifierType
+     * @return string
      */
-    public function void(string $identifier, string $identifierType = 'guid')
+    public function void(string $identifier)
     {
-        $this->voidOrDelete('VOID', 'Invoice', $identifier, $identifierType);
+        return $this->updateStatus('Invoice', $identifier, 'VOIDED');
     }
 }

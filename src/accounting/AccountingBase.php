@@ -61,6 +61,7 @@ class AccountingBase
      * @param string $resourceType
      * @param string $identifier
      * @param string $status
+     * @return string
      */
 
     protected function updateStatus(string $resourceType, string $identifier, string $status){
