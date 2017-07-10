@@ -39,7 +39,7 @@ class Contacts extends AccountingBase implements
         if ($identifier) {
             return $this->sendRequest('GET', 'Contacts/' . $identifier);
         }
-        return $this->sendRequest('GET', 'Contacts', $this->parameters);
+        return $this->sendRequest('GET', 'Contacts');
     }
 
     /**

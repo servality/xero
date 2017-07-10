@@ -171,7 +171,7 @@ class XeroApplication
     public function contacts()
     {
         if (!is_a($this->contacts, 'Contacts')) {
-            $this->invoices = new Contacts($this->config);
+            $this->contacts = new Contacts($this->config);
         }
         return $this->contacts;
     }
