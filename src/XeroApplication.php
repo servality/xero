@@ -68,49 +68,10 @@ class XeroApplication
         'user_agent' => '' //name of application
     ];
 
-    private $accounts;
-    private $bankTransactions;
-    private $bankTransfers;
-    private $brandingThemes;
-    private $contactGroups;
-    private $contacts;
-    private $creditNotes;
-    private $currencies;
-    private $employees;
-    private $expenseClaims;
-    private $invoiceReminders;
-    private $invoices;
-    private $items;
-    private $journals;
-    private $linkedTransactions;
-    private $manualJournals;
-    private $organisation;
-    private $overPayments;
-    private $payments;
-    private $prePayments;
-    private $purchaseOrders;
-    private $receipts;
-    private $repeatingInvoices;
-    private $taxRates;
-    private $trackingCategories;
-    private $users;
-    private $reportAgedPayablesByContact;
-    private $reportAgedReceivableByContact;
-    private $reportBalanceSheet;
-    private $reportBankStatement;
-    private $reportBankSummary;
-    private $reportBASReport;
-    private $reportBudgetSummary;
-    private $reportExecutiveSummary;
-    private $reportGSTReport;
-    private $reportProfitAndLoss;
-    private $reportTrialBalance;
-
     /**
      * XeroApplication constructor.
      * @param array $config
      */
-
     function __construct(array $config)
     {
         //set $configuration values
@@ -128,299 +89,299 @@ class XeroApplication
         $this->config['oauth']['token_secret'] = $this->config['oauth']['consumer_secret'];
     }
 
+    /**
+     * @return Accounts
+     */
     public function accounts()
     {
-        if (!is_a($this->accounts, 'Accounts')) {
-            $this->accounts = new Accounts($this->config);
-        }
-        return $this->accounts;
+        return new Accounts($this->config);
     }
 
+    /**
+     * @return BankTransactions
+     */
     public function bankTransactions()
     {
-        if (!is_a($this->bankTransactions, 'BankTransactions')) {
-            $this->bankTransactions = new BankTransactions($this->config);
-        }
-        return $this->bankTransactions;
+        return new BankTransactions($this->config);
     }
 
+    /**
+     * @return BankTransfers
+     */
     public function bankTransfers()
     {
-        if (!is_a($this->bankTransfers, 'BankTransfers')) {
-            $this->bankTransfers = new BankTransfers($this->config);
-        }
-        return $this->bankTransfers;
+        return new BankTransfers($this->config);
     }
 
+    /**
+     * @return BrandingThemes
+     */
     public function brandingThemes()
     {
-        if (!is_a($this->brandingThemes, 'BrandingTheme')) {
-            $this->brandingThemes = new BrandingThemes($this->config);
-        }
-        return $this->brandingThemes;
+        return new BrandingThemes($this->config);
     }
 
+    /**
+     * @return ContactGroups
+     */
     public function contactGroups()
     {
-        if (!is_a($this->contactGroups, 'ContactGroups')) {
-            $this->contactGroups = new ContactGroups($this->config);
-        }
-        return $this->contactGroups;
+        return new ContactGroups($this->config);
     }
 
+    /**
+     * @return Contacts
+     */
     public function contacts()
     {
-        if (!is_a($this->contacts, 'Contacts')) {
-            $this->contacts = new Contacts($this->config);
-        }
-        return $this->contacts;
+        return new Contacts($this->config);
     }
 
+    /**
+     * @return CreditNotes
+     */
     public function creditNotes()
     {
-        if (!is_a($this->creditNotes, 'CreditNotes')) {
-            $this->creditNotes = new CreditNotes($this->config);
-        }
-        return $this->creditNotes;
+        return new CreditNotes($this->config);
     }
 
+    /**
+     * @return Currencies
+     */
     public function currencies()
     {
-        if (!is_a($this->currencies, 'Currencies')) {
-            $this->currencies = new Currencies($this->config);
-        }
-        return $this->currencies;
+        return new Currencies($this->config);
     }
 
+    /**
+     * @return Employees
+     */
     public function employees()
     {
-        if (!is_a($this->employees, 'Employees')) {
-            $this->employees = new Employees($this->config);
-        }
-        return $this->employees;
+        return new Employees($this->config);
     }
 
+    /**
+     * @return ExpenseClaims
+     */
     public function expenseClaims()
     {
-        if (!is_a($this->expenseClaims, 'ExpenseClaims')) {
-            $this->expenseClaims = new ExpenseClaims($this->config);
-        }
-        return $this->expenseClaims;
+        return new ExpenseClaims($this->config);
     }
 
+    /**
+     * @return InvoiceReminders
+     */
     public function invoiceReminders()
     {
-        if (!is_a($this->invoiceReminders, 'InvoiceReminders')) {
-            $this->invoiceReminders = new InvoiceReminders($this->config);
-        }
-        return $this->invoiceReminders;
+        return new InvoiceReminders($this->config);
     }
 
+    /**
+     * @return Invoices
+     */
     public function invoices()
     {
-        if (!is_a($this->invoices, 'Invoices')) {
-            $this->invoices = new Invoices($this->config);
-        }
-        return $this->invoices;
+        return new Invoices($this->config);
     }
 
+    /**
+     * @return Items
+     */
     public function items()
     {
-        if (!is_a($this->items, 'Items')) {
-            $this->items = new Items($this->config);
-        }
-        return $this->items;
+        return new Items($this->config);
     }
 
+    /**
+     * @return Journals
+     */
     public function journals()
     {
-        if (!is_a($this->journals, 'Journals')) {
-            $this->journals = new Journals($this->config);
-        }
-        return $this->journals;
+        return new Journals($this->config);
     }
 
+    /**
+     * @return LinkedTransactions
+     */
     public function linkedTransactions()
     {
-        if (!is_a($this->linkedTransactions, 'LinkedTransactions')) {
-            $this->linkedTransactions = new LinkedTransactions($this->config);
-        }
-        return $this->linkedTransactions;
+        return new LinkedTransactions($this->config);
     }
 
+    /**
+     * @return ManualJournals
+     */
     public function manualJournals()
     {
-        if (!is_a($this->manualJournals, 'ManualJournals')) {
-            $this->manualJournals = new ManualJournals($this->config);
-        }
-        return $this->manualJournals;
+        return new ManualJournals($this->config);
     }
 
+    /**
+     * @return Organisation
+     */
     public function organisation()
     {
-        if (!is_a($this->organisation, 'Organisation')) {
-            $this->organisation = new Organisation($this->config);
-        }
-        return $this->organisation;
+        return new Organisation($this->config);
     }
 
+    /**
+     * @return OverPayments
+     */
     public function overPayments()
     {
-        if (!is_a($this->overPayments, 'OverPayments')) {
-            $this->overPayments = new OverPayments($this->config);
-        }
-        return $this->overPayments;
+        return new OverPayments($this->config);
     }
 
+    /**
+     * @return Payments
+     */
     public function payments()
     {
-        if (!is_a($this->payments, 'Payments')) {
-            $this->payments = new Payments($this->config);
-        }
-        return $this->payments;
+        return new Payments($this->config);
     }
 
+    /**
+     * @return PrePayments
+     */
     public function prePayments()
     {
-        if (!is_a($this->prePayments, 'PrePayments')) {
-            $this->prePayments = new PrePayments($this->config);
-        }
-        return $this->prePayments;
+        return new PrePayments($this->config);
     }
 
+    /**
+     * @return PurchaseOrders
+     */
     public function purchaseOrders()
     {
-        if (!is_a($this->purchaseOrders, 'PurchaseOrders')) {
-            $this->purchaseOrders = new PurchaseOrders($this->config);
-        }
-        return $this->purchaseOrders;
+        return new PurchaseOrders($this->config);
     }
 
+    /**
+     * @return Receipts
+     */
     public function receipts()
     {
-        if (!is_a($this->receipts, 'Receipts')) {
-            $this->receipts = new Receipts($this->config);
-        }
-        return $this->receipts;
+        return new Receipts($this->config);
     }
 
+    /**
+     * @return RepeatingInvoices
+     */
     public function repeatingInvoices()
     {
-        if (!is_a($this->repeatingInvoices, 'RepeatingInvoices')) {
-            $this->repeatingInvoices = new RepeatingInvoices($this->config);
-        }
-        return $this->repeatingInvoices;
+        return new RepeatingInvoices($this->config);
     }
 
+    /**
+     * @return TaxRatesFilter
+     */
     public function taxRates()
     {
-        if (!is_a($this->taxRates, 'TaxRates')) {
-            $this->taxRates = new TaxRatesFilter($this->config);
-        }
-        return $this->taxRates;
+        return new TaxRatesFilter($this->config);
     }
 
+    /**
+     * @return TrackingCategories
+     */
     public function trackingCategories()
     {
-        if (!is_a($this->trackingCategories, 'TrackingCategories')) {
-            $this->trackingCategories = new TrackingCategories($this->config);
-        }
-        return $this->trackingCategories;
+        return new TrackingCategories($this->config);
     }
 
+    /**
+     * @return Users
+     */
     public function users()
     {
-        if (!is_a($this->users, 'Users')) {
-            $this->users = new Users($this->config);
-        }
-        return $this->users;
+        return new Users($this->config);
     }
 
+    /**
+     * @return AgedPayablesByContact
+     */
     public function reportAgedPayableByContact()
     {
-        if (!is_a($this->reportAgedPayablesByContact, 'AgedPayablesByContact')) {
-            $this->reportAgedPayablesByContact = new AgedPayablesByContact($this->config);
-        }
-        return $this->reportAgedPayablesByContact;
+        return new AgedPayablesByContact($this->config);
     }
 
+    /**
+     * @return AgedReceivablesByContact
+     */
     public function reportAgedReceivableByContact()
     {
-        if(!is_a($this->reportAgedReceivableByContact, 'AgedReceivablesByContact')){
-            $this->reportAgedReceivableByContact = new AgedReceivablesByContact($this->config);
-        }
-        return $this->reportAgedReceivableByContact;
+        return new AgedReceivablesByContact($this->config);
     }
 
+    /**
+     * @return BalanceSheet
+     */
     public function reportBalanceSheet()
     {
-        if(!is_a($this->reportBalanceSheet, 'BalanceSheet')){
-            $this->reportBalanceSheet = new BalanceSheet($this->config);
-        }
-        return $this->reportBalanceSheet;
+        return new BalanceSheet($this->config);
     }
-    
+
+    /**
+     * @return BankStatement
+     */
     public function reportBankStatement()
     {
-        if(!is_a($this->reportBankStatement, 'BankStatement')){
-            $this->reportBankStatement = new BankStatement($this->config);
-        }
-        return $this->reportBankStatement;
+        return new BankStatement($this->config);
     }
-    
+
+    /**
+     * @return BankSummary
+     */
     public function reportBankSummary()
     {
-        if(!is_a($this->reportBankSummary, 'BankSummary')){
-            $this->reportBankSummary = new BankSummary($this->config);
-        }
-        return $this->reportBankSummary;
+        return new BankSummary($this->config);
     }
 
+    /**
+     * @return BASReport
+     */
     public function reportBASReport()
     {
-        if(!is_a($this->reportBASReport, 'BASReport')){
-            $this->reportBASReport = new BASReport($this->config);
-        }
-        return $this->reportBASReport;
+        return new BASReport($this->config);
     }
 
+    /**
+     * @return BudgetSummary
+     */
     public function reportBudgetSummary()
     {
-        if(!is_a($this->reportBudgetSummary, 'BudgetSummary')){
-            $this->reportBudgetSummary = new BudgetSummary($this->config);
-        }
-        return $this->reportBudgetSummary;
+        return new BudgetSummary($this->config);
     }
 
+    /**
+     * @return ExecutiveSummary
+     */
     public function reportExecutiveSummary()
     {
-        if(!is_a($this->reportExecutiveSummary, 'ExecutiveSummary')){
-            $this->reportExecutiveSummary = new ExecutiveSummary($this->config);
-        }
-        return $this->reportExecutiveSummary;
+        return new ExecutiveSummary($this->config);
     }
 
+    /**
+     * @return GSTReport
+     */
     public function reportGSTReport()
     {
-        if(!is_a($this->reportGSTReport, 'GSTReport')){
-            $this->reportGSTReport = new GSTReport($this->config);
-        }
-        return $this->reportGSTReport;
+        return new GSTReport($this->config);
     }
 
+    /**
+     * @return ProfitAndLoss
+     */
     public function reportProfitAndLoss()
     {
-        if(!is_a($this->reportProfitAndLoss, 'ProfitAndLoss')){
-            $this->reportProfitAndLoss = new ProfitAndLoss($this->config);
-        }
-        return $this->reportProfitAndLoss;
+        return new ProfitAndLoss($this->config);
     }
 
+    /**
+     * @return TrialBalance
+     */
     public function reportTrialBalance()
     {
-        if(!is_a($this->reportTrialBalance, 'TrialBalance')){
-            $this->reportTrialBalance = new TrialBalance($this->config);
-        }
-        return $this->reportTrialBalance;
+        return new TrialBalance($this->config);
     }
 }
