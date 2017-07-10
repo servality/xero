@@ -70,4 +70,9 @@ class Users extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'Users');
     }
+
+    public function delete(string $identifier)
+    {
+        return $this->sendRequest('DELETE', 'Users/' . $identifier);
+    }
 }

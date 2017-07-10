@@ -16,11 +16,19 @@ class BankTransactions extends AccountingBase implements
     SummarizeErrors
 {
 
+    /**
+     * BankTransactions constructor.
+     * @param array $config
+     */
     function __construct($config)
     {
         parent::__construct($config);
     }
 
+    /**
+     * @param string $timestamp
+     * @return $this
+     */
     public function modifiedAfter(string $timestamp)
     {
         $this->addToHeaders($this->modifiedAfterHeader($timestamp));
@@ -28,6 +36,11 @@ class BankTransactions extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param string $orderBy
+     * @param string|null $direction
+     * @return $this
+     */
     public function orderBy(string $orderBy, string $direction = null)
     {
         $this->addToQuery($this->orderParameter($orderBy, $direction));
@@ -35,6 +48,10 @@ class BankTransactions extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param int $page
+     * @return $this
+     */
     public function page(int $page)
     {
         $this->addToQuery($this->pageParameter($page));
@@ -42,6 +59,10 @@ class BankTransactions extends AccountingBase implements
         return $this;
     }
 
+    /**
+     * @param string $where
+     * @return $this
+     */
     public function where(string $where)
     {
         $this->addToQuery($this->whereParameter($where));
@@ -60,11 +81,43 @@ class BankTransactions extends AccountingBase implements
         return $this;
     }
 
-    public function get($identifier = null)
+    /**
+     * @param string|null $identifier
+     * @return string
+     */
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'BankTransactions/' . $identifier);
         }
         return $this->sendRequest('GET', 'BankTransactions');
+    }
+
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('PUT', 'BankTransactions', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $data
+     * @return string
+     */
+    public function update(string $identifier, string $data)
+    {
+        return $this->sendRequest('POST', 'BankTransactions/' . $identifier, $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function delete(string $identifier)
+    {
+        return $this->updateStatus('BankTransaction', $identifier, 'DELETED');
     }
 }

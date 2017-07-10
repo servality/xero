@@ -4,7 +4,6 @@ namespace Xero\accounting;
 
 use Xero\accounting\filters\ModifiedAfterFilter;
 use Xero\accounting\filters\OrderByFilter;
-use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
 /**
@@ -14,8 +13,7 @@ use Xero\accounting\filters\WhereFilter;
 class Accounts extends AccountingBase implements
     ModifiedAfterFilter,
     WhereFilter,
-    OrderByFilter,
-    SummarizeErrors
+    OrderByFilter
 {
     /**
      * Accounts constructor.
@@ -61,21 +59,10 @@ class Accounts extends AccountingBase implements
     }
 
     /**
-     * @param bool $summarizeErrors
-     * @return $this
-     */
-    public function SummarizeErrors(bool $summarizeErrors = false)
-    {
-        $this->addToQuery($this->summarizeErrorsParameter($summarizeErrors));
-
-        return $this;
-    }
-
-    /**
-     * @param null $identifier
+     * @param null string $identifier
      * @return string
      */
-    public function get($identifier = null)
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'Accounts/' . $identifier);
@@ -83,22 +70,40 @@ class Accounts extends AccountingBase implements
         return $this->sendRequest('GET', 'Accounts');
     }
 
-    public function create()
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
     {
-
+        return $this->sendRequest('PUT', 'Accounts', $data);
     }
 
-    public function update()
+    /**
+     * @param string $identifier
+     * @param string $data
+     * @return string
+     */
+    public function update(string $identifier, string $data)
     {
-
+        return $this->sendRequest('POST', 'Accounts/'.$identifier, $data);
     }
 
-    public function delete()
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function delete(string $identifier)
     {
-
+        return $this->sendRequest('DELETE', 'Accounts/' . $identifier);
     }
 
-    public function archive(string $identifier){
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function archive(string $identifier)
+    {
         return $this->updateStatus('Account', $identifier, 'ARCHIVED');
     }
 }
