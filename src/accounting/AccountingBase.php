@@ -4,6 +4,10 @@ namespace Xero\accounting;
 use Xero\accounting\filters\AccountingFilterHelper;
 use Xero\PrivateRequest;
 
+/**
+ * Class AccountingBase
+ * @package Xero\accounting
+ */
 class AccountingBase
 {
     protected $parameters = [];
@@ -71,6 +75,7 @@ class AccountingBase
 
         $xml = '
         <'.$resourceType.'>
+            <'.$resourceType.'ID>8694c9c5-7097-4449-a708-b8c1982921a4</'.$resourceType.'ID>
             <'.$statusTag.'>'.$status.'<'.$statusTag.'>
         </'.$resourceType.'>';
 
