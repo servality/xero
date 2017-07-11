@@ -16,11 +16,12 @@ class InvoiceReminders extends AccountingBase
     {
         parent::__construct($config);
     }
+
     /**
      * @return string
      */
     public function get()
     {
-        return $this->sendRequest('GET', 'InvoiceReminders');
+        return $this->sendRequest('GET', 'InvoiceReminders/Settings');
     }
 }

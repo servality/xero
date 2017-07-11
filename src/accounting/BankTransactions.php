@@ -8,6 +8,10 @@ use Xero\accounting\filters\PageFilter;
 use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
+/**
+ * Class BankTransactions
+ * @package Xero\accounting
+ */
 class BankTransactions extends AccountingBase implements
     ModifiedAfterFilter,
     WhereFilter,

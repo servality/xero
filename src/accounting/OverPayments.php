@@ -89,11 +89,33 @@ class OverPayments extends AccountingBase implements
      * @param null $identifier
      * @return string
      */
-    public function get($identifier = null)
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'Overpayments/' . $identifier);
         }
         return $this->sendRequest('GET', 'Overpayments');
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $invoiceID
+     * @param int $appliedAmount
+     * @return string
+     */
+    public function allocate(string $identifier, string $invoiceID, int $appliedAmount){
+
+        $xml = '
+            <Allocations>
+                <Allocation>
+                    <AppliedAmount>'.$appliedAmount.'</AppliedAmount>
+                        <Invoice>
+                            <InvoiceID>'.$invoiceID.'</InvoiceID>
+                        </Invoice>
+                </Allocation>
+            </Allocations>
+        ';
+
+        return $this->sendRequest('PUT', 'Overpayments/' . $identifier.'/Allocations', $xml);
     }
 }

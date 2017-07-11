@@ -76,11 +76,190 @@ class Payments extends AccountingBase implements
      * @param null $identifier
      * @return string
      */
-    public function get($identifier = null)
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'Payments/' . $identifier);
         }
         return $this->sendRequest('GET', 'Payments');
+    }
+
+    /**
+     * @param string $invoiceID
+     * @param string $accountIdentifierType
+     * @param string $accountIdentifier
+     * @param string $date
+     * @param string $amount
+     * @param bool $isReconciled
+     * @return string
+     */
+    public function applyOne(
+        string $invoiceID,
+        string $accountIdentifierType,
+        string $accountIdentifier,
+        string $date,
+        string $amount,
+        bool $isReconciled = false
+    )
+    {
+        $accountIdentifierType = $accountIdentifierType == "Code" ? 'Code' : 'AccountID';
+
+        $xml = '
+            <Payments>
+                <Payment>
+                    <Invoice>
+                        <InvoiceID>' . $invoiceID . '</InvoiceID>
+                    </Invoice>
+                    <Account>
+                        <' . $accountIdentifierType . '>' . $accountIdentifier . '</' . $accountIdentifierType . '>
+                    </Account>
+                    <Date>' . $date . '</Date>
+                    <Amount>' . $amount . '</Amount>
+                    <IsReconciled>' . $isReconciled . '</IsReconciled>
+                </Payment>
+            </Payments>
+        ';
+
+        return $this->sendRequest('POST', 'Payments', $xml);
+    }
+
+    /**
+     * Multiple payments
+     * @param $data
+     * @return string
+     */
+    public function apply($data)
+    {
+        return $this->sendRequest('POST', 'Payments', $data);
+    }
+
+    /**
+     * @param string $CreditNoteID
+     * @param string $accountIdentifierType
+     * @param string $accountIdentifier
+     * @param string $date
+     * @param string $amount
+     * @param string $reference
+     * @return string
+     */
+    public function creditNoteRefund(
+        string $CreditNoteID,
+        string $accountIdentifierType,
+        string $accountIdentifier,
+        string $date,
+        string $amount,
+        string $reference
+    )
+    {
+        $accountIdentifierType = $accountIdentifierType == "Code" ? 'Code' : 'AccountID';
+
+        $xml = '
+            <Payments>
+                <Payment>
+                    <CreditNote>
+                        <CreditNoteID>' . $CreditNoteID . '</CreditNoteID>
+                    </CreditNote>
+                    <Account>
+                        <' . $accountIdentifierType . '>' . $accountIdentifier . '</' . $accountIdentifierType . '>
+                    </Account>
+                    <Date>' . $date . '</Date>
+                    <Amount>' . $amount . '</Amount>
+                    <Reference>' . $reference . '</Reference>
+                </Payment>
+            </Payments>
+        ';
+
+        return $this->sendRequest('GET', 'Payments', $xml);
+    }
+
+    /**
+     * @param string $prepaymentID
+     * @param string $accountIdentifierType
+     * @param string $accountIdentifier
+     * @param string $date
+     * @param string $amount
+     * @param string $reference
+     * @return string
+     */
+    public function prepaymentRefund(
+        string $prepaymentID,
+        string $accountIdentifierType,
+        string $accountIdentifier,
+        string $date,
+        string $amount,
+        string $reference
+    )
+    {
+        $xml = '
+            <Payments>
+                <Payment>
+                    <Prepayment>
+                        <PrepaymentID>' . $prepaymentID . '</PrepaymentID>
+                    </Prepayment>
+                    <Account>
+                        <' . $accountIdentifierType . '>' . $accountIdentifier . '</' . $accountIdentifierType . '>
+                    </Account>
+                    <Date>' . $date . '</Date>
+                    <Amount>' . $amount . '</Amount>
+                    <Reference>' . $reference . '</Reference>
+                </Payment>
+            </Payments>
+        ';
+
+        return $this->sendRequest('GET', 'Payments', $xml);
+    }
+
+    /**
+     * @param string $overpaymentID
+     * @param string $accountIdentifierType
+     * @param string $accountIdentifier
+     * @param string $date
+     * @param string $amount
+     * @param string $reference
+     * @return string
+     */
+    public function overpaymentRefund(
+        string $overpaymentID,
+        string $accountIdentifierType,
+        string $accountIdentifier,
+        string $date,
+        string $amount,
+        string $reference
+    )
+    {
+        $xml = '
+            <Payments>
+                <Payment>
+                    <Prepayment>
+                        <OverpaymentID>' . $overpaymentID . '</OverpaymentID>
+                    </Prepayment>
+                    <Account>
+                        <' . $accountIdentifierType . '>' . $accountIdentifier . '</' . $accountIdentifierType . '>
+                    </Account>
+                    <Date>' . $date . '</Date>
+                    <Amount>' . $amount . '</Amount>
+                    <Reference>' . $reference . '</Reference>
+                </Payment>
+            </Payments>
+        ';
+
+        return $this->sendRequest('GET', 'Payments', $xml);
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function delete(string $identifier)
+    {
+        $xml = '
+            <Payments>
+                <Payment>
+                    <Status>DELETED</Status>
+                </Payment>
+            </Payments>
+        ';
+
+        return $this->sendRequest('GET', 'Payments/' . $identifier, $xml);
     }
 }

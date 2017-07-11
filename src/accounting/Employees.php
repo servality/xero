@@ -83,4 +83,23 @@ class Employees extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'Employees');
     }
+
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('PUT', 'Employees', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $data
+     * @return string
+     */
+    public function update(string $identifier, string $data)
+    {
+        return $this->sendRequest('POST', 'Employees/'.$identifier, $data);
+    }
 }

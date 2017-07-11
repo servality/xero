@@ -17,6 +17,7 @@ class Organisation extends AccountingBase
     {
         parent::__construct($config);
     }
+
     /**
      * @return string
      */

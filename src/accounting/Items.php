@@ -83,4 +83,23 @@ class Items extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'Items');
     }
+
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('POST', 'Items', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $data
+     * @return string
+     */
+    public function update(string $identifier, string $data)
+    {
+        return $this->sendRequest('POST', 'Items/' . $identifier, $data);
+    }
 }

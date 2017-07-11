@@ -82,4 +82,23 @@ class ExpenseClaims extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'ExpenseClaims');
     }
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('PUT', 'ExpenseClaims', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @param string $data
+     * @return string
+     */
+    public function update(string $identifier, string $data)
+    {
+        return $this->sendRequest('POST', 'ExpenseClaims/'.$identifier, $data);
+    }
+
 }

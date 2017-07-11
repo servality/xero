@@ -146,22 +146,22 @@ class Invoices extends AccountingBase implements
     }
 
     /**
-     * @param string $xml
+     * @param string $data
      * @return string
      */
-    public function create(string $xml)
+    public function create(string $data)
     {
-        return $this->sendRequest('POST', 'Invoices', $xml);
+        return $this->sendRequest('POST', 'Invoices', $data);
     }
 
     /**
      * @param string $identifier
-     * @param string $xml
+     * @param string $data
      * @return string
      */
-    public function update(string $identifier, string $xml)
+    public function update(string $identifier, string $data)
     {
-        return $this->sendRequest('POST', 'Invoices/' . $identifier, $xml);
+        return $this->sendRequest('POST', 'Invoices/' . $identifier, $data);
     }
 
     /**
