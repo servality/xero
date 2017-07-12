@@ -7,17 +7,17 @@ use Xero\accounting\filters\TaxTypeFilter;
 use Xero\accounting\filters\WhereFilter;
 
 /**
- * Class TaxRatesFilter
+ * Class TaxRates
  * @package Xero\accounting
  */
-class TaxRatesFilter extends AccountingBase implements
+class TaxRates extends AccountingBase implements
     WhereFilter,
     OrderByFilter,
     TaxTypeFilter
 {
 
     /**
-     * TaxRatesFilter constructor.
+     * TaxRates constructor.
      * @param array $config
      */
     function __construct($config)

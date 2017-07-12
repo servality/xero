@@ -27,7 +27,7 @@ use Xero\accounting\PrePayments;
 use Xero\accounting\PurchaseOrders;
 use Xero\accounting\Receipts;
 use Xero\accounting\RepeatingInvoices;
-use Xero\accounting\TaxRatesFilter;
+use Xero\accounting\TaxRates;
 use Xero\accounting\TrackingCategories;
 use Xero\accounting\Users;
 //Reports
@@ -274,11 +274,11 @@ class XeroApplication
     }
 
     /**
-     * @return TaxRatesFilter
+     * @return TaxRates
      */
     public function taxRates()
     {
-        return new TaxRatesFilter($this->config);
+        return new TaxRates($this->config);
     }
 
     /**
