@@ -25,7 +25,7 @@ composer require servality/xero
 or add to composer.json:
 ```json
   "require": {
-    "servality/xero": "0.1.*"
+    "servality/xero": "dev-master"
   }
 ```
 ## Prerequisites
