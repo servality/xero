@@ -100,14 +100,48 @@ class PurchaseOrders extends AccountingBase implements
     }
 
     /**
-     * @param null $identifier
+     * @param string|null $identifier
      * @return string
      */
-    public function get($identifier = null)
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'PurchaseOrders/' . $identifier);
         }
         return $this->sendRequest('GET', 'PurchaseOrders');
+    }
+
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('POST', 'PurchaseOrders', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function delete(string $identifier)
+    {
+        return $this->updateStatus('PurchaseOrder', $identifier, 'DELETED');
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function sentToContact(string $identifier)
+    {
+        $xml = '
+            <PurchaseOrder>
+                <PurchaseOrderID>' . $identifier . '</PurchaseOrderID>
+                <SentToContact>true</SentToContact>
+            </PurchaseOrder>
+        ';
+
+        return $this->sendRequest('POST', 'PurchaseOrders/' . $identifier, $xml);
     }
 }

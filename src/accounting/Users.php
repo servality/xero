@@ -71,6 +71,10 @@ class Users extends AccountingBase implements
         return $this->sendRequest('GET', 'Users');
     }
 
+    /**
+     * @param string $identifier
+     * @return string
+     */
     public function delete(string $identifier)
     {
         return $this->sendRequest('DELETE', 'Users/' . $identifier);

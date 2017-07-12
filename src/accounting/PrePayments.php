@@ -96,4 +96,26 @@ class PrePayments extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'Prepayments');
     }
+
+    /**
+     * @param string $identifier
+     * @param string $invoiceID
+     * @param int $appliedAmount
+     * @return string
+     */
+    public function allocate(string $identifier, string $invoiceID, int $appliedAmount){
+
+        $xml = '
+            <Allocations>
+                <Allocation>
+                    <AppliedAmount>'.$appliedAmount.'</AppliedAmount>
+                        <Invoice>
+                            <InvoiceID>'.$invoiceID.'</InvoiceID>
+                        </Invoice>
+                </Allocation>
+            </Allocations>
+        ';
+
+        return $this->sendRequest('PUT', 'Prepayments/' . $identifier.'/Allocations', $xml);
+    }
 }

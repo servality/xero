@@ -76,11 +76,128 @@ class TrackingCategories extends AccountingBase implements
      * @param null $identifier
      * @return string
      */
-    public function get($identifier = null)
+    public function get(string $identifier = null)
     {
         if ($identifier) {
             return $this->sendRequest('GET', 'TrackingCategories/' . $identifier);
         }
         return $this->sendRequest('GET', 'TrackingCategories');
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function create(string $name)
+    {
+        $xml = '
+            <TrackingCategories>
+                <TrackingCategory>
+                    <Name>' . $name . '</Name>
+                </TrackingCategory>
+            </TrackingCategories>
+        ';
+
+        return $this->sendRequest('PUT', 'TrackingCategories', $xml);
+    }
+
+    /**
+     * @param string $categoryID
+     * @param string[] ...$names
+     * @return string
+     */
+    public function createOption(string $categoryID, string ...$names)
+    {
+        $options = null;
+
+        foreach ($names as $name) {
+            $options = $options . '<Option><Name>' . $name . '</Name></Option>';
+        }
+
+        $xml = '<Options>' . $options . '</Options>';
+
+        return $this->sendRequest('PUT', 'TrackingCategories/' . $categoryID . '/Options', $xml);
+    }
+
+    /**
+     * @param string $categoryID
+     * @param string $name
+     * @return string
+     */
+    public function updateName(string $categoryID, string $name)
+    {
+        $xml = '
+            <TrackingCategories>
+                <TrackingCategory>
+                    <Name>' . $name . '</Name>
+                </TrackingCategory>
+            </TrackingCategories>
+        ';
+
+        return $this->sendRequest('POST', 'TrackingCategories/' . $categoryID, $xml);
+    }
+
+    /**
+     * @param string $categoryID
+     * @param string $categoryOptionID
+     * @param string $name
+     * @return string
+     */
+    public function updateOptionName(string $categoryID, string $categoryOptionID, string $name)
+    {
+        $xml = '
+            <Options>
+                <Option>
+                    <Name>' . $name . '</Name>
+                </Option>
+            </Options>
+        ';
+
+        return $this->sendRequest('POST', 'TrackingCategories/' . $categoryID . '/Options/' . $categoryOptionID, $xml);
+    }
+
+    /**
+     * @param string $categoryID
+     */
+    public function archive(string $categoryID)
+    {
+        $this->updateStatus('TrackingCategory', $categoryID, 'ARCHIVED');
+    }
+
+    /**
+     * @param string $categoryID
+     * @param string $categoryOptionID
+     * @return string
+     */
+    public function archiveOption(string $categoryID, string $categoryOptionID)
+    {
+        $xml = '
+            <Options>
+                <Option>
+                    <Status>ARCHIVED</Status>
+                </Option>
+            </Options>
+        ';
+
+        return $this->sendRequest('DELETE', 'TrackingCategories/' . $categoryID . '/Options/' . $categoryOptionID, $xml);
+    }
+
+    /**
+     * @param string $categoryID
+     * @return string
+     */
+    public function delete(string $categoryID)
+    {
+        return $this->sendRequest('DELETE', 'TrackingCategories/' . $categoryID);
+    }
+
+    /**
+     * @param string $categoryID
+     * @param string $categoryOptionID
+     * @return string
+     */
+    public function deleteOption(string $categoryID, string $categoryOptionID)
+    {
+        return $this->sendRequest('DELETE', 'TrackingCategories/' . $categoryID . '/Options/' . $categoryOptionID);
     }
 }

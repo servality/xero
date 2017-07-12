@@ -83,4 +83,22 @@ class Receipts extends AccountingBase implements
         }
         return $this->sendRequest('GET', 'Receipts');
     }
+
+    /**
+     * @param string $data
+     * @return string
+     */
+    public function create(string $data)
+    {
+        return $this->sendRequest('POST', 'Receipts', $data);
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function delete(string $identifier)
+    {
+        return $this->updateStatus('Receipt', $identifier, 'DELETED');
+    }
 }

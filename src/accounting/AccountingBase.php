@@ -74,10 +74,12 @@ class AccountingBase
         $resourcePath = $resourceType == 'TrackingCategory' ? 'TrackingCategories' : $resourceType.'s';
 
         $xml = '
-        <'.$resourceType.'>
-            <'.$resourceType.'ID>8694c9c5-7097-4449-a708-b8c1982921a4</'.$resourceType.'ID>
-            <'.$statusTag.'>'.$status.'<'.$statusTag.'>
-        </'.$resourceType.'>';
+        <'.$resourcePath.'>
+            <'.$resourceType.'>
+                <'.$resourceType.'ID>8694c9c5-7097-4449-a708-b8c1982921a4</'.$resourceType.'ID>
+                <'.$statusTag.'>'.$status.'<'.$statusTag.'>
+            </'.$resourceType.'>
+        <'.$resourcePath.'>';
 
         return $this->sendRequest('POST', $resourcePath.'/'.$identifier, $xml);
     }
