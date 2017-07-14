@@ -2,7 +2,6 @@
 
 namespace Xero\accounting;
 
-
 /**
  * Class BrandingTheme
  * @package Xero\accounting
@@ -20,10 +19,14 @@ class BrandingThemes extends AccountingBase
     }
 
     /**
-     * @return mixed
+     * @param null $identifier
+     * @return string
      */
-    public function get()
+    public function get($identifier = null)
     {
+        if ($identifier) {
+            return $this->sendRequest('GET', 'BrandingThemes/' . $identifier);
+        }
         return $this->sendRequest('GET', 'BrandingThemes');
     }
 }
