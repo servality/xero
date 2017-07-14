@@ -15,12 +15,12 @@ This application was written as a simple Xero API wrapper for use in a laravel a
 
 ## Installation
 
-Recommended installation through Composer.  
+Recommended installation is through Composer.  
 
-Bash:
+console:
 
 ```bash
-composer require servality/xero
+composer require servality/xero:dev-master
 ```
 or add to composer.json:
 ```json
@@ -30,6 +30,7 @@ or add to composer.json:
 ```
 ## Prerequisites
 
+A Xero organisation is required to use the API. It's recommended a [demo company](https://my.xero.com/!xkcD/Action/OrganisationLogin/!zkmCt) is created for testing. Follow the steps at [Xero Developer](https://developer.xero.com/) to create a private application.
 
 ## Usage
 
