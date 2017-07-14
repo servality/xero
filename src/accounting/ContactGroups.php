@@ -3,7 +3,6 @@
 namespace Xero\accounting;
 
 use Xero\accounting\filters\OrderByFilter;
-use Xero\accounting\filters\SummarizeErrors;
 use Xero\accounting\filters\WhereFilter;
 
 /**
@@ -12,8 +11,7 @@ use Xero\accounting\filters\WhereFilter;
  */
 class ContactGroups extends AccountingBase implements
     WhereFilter,
-    OrderByFilter,
-    SummarizeErrors
+    OrderByFilter
 {
 
     /**
@@ -44,17 +42,6 @@ class ContactGroups extends AccountingBase implements
     public function where(string $where)
     {
         $this->addToQuery($this->whereParameter($where));
-
-        return $this;
-    }
-
-    /**
-     * @param bool $summarizeErrors
-     * @return $this
-     */
-    public function SummarizeErrors(bool $summarizeErrors = false)
-    {
-        $this->addToQuery($this->summarizeErrorsParameter($summarizeErrors));
 
         return $this;
     }
@@ -105,7 +92,7 @@ class ContactGroups extends AccountingBase implements
      * @param string $contactIdentifier
      * @return string
      */
-    public function deleteContact(string $groupIdentifier, string $contactIdentifier)
+    public function removeContact(string $groupIdentifier, string $contactIdentifier)
     {
         return $this->sendRequest('DELETE', 'ContactGroups/' . $groupIdentifier . '/Contacts/' . $contactIdentifier);
     }
@@ -114,7 +101,7 @@ class ContactGroups extends AccountingBase implements
      * @param string $groupIdentifier
      * @return string
      */
-    public function deleteAllContacts(string $groupIdentifier)
+    public function removeAllContacts(string $groupIdentifier)
     {
         return $this->sendRequest('DELETE', 'ContactGroups/' . $groupIdentifier . '/Contacts');
     }
