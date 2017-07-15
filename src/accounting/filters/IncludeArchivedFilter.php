@@ -16,5 +16,5 @@ interface IncludeArchivedFilter
      * @return mixed
      */
 
-    public function includeArchived(bool $includeArchived);
+    public function includeArchived(bool $includeArchived = true);
 }

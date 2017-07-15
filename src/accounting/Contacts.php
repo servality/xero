@@ -46,7 +46,7 @@ class Contacts extends AccountingBase implements
      * @param bool $includeArchived
      * @return $this
      */
-    public function includeArchived(bool $includeArchived)
+    public function includeArchived(bool $includeArchived = true)
     {
         $this->addToQuery($this->includeArchivedParameter($includeArchived));
         return $this;
