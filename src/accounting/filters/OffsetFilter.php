@@ -13,5 +13,5 @@ interface OffsetFilter
      * @param string $offset
      * @return mixed
      */
-    public function offset(string $offset);
+    public function offset(int $offset);
 }

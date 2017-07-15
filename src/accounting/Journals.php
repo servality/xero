@@ -40,7 +40,7 @@ class Journals extends AccountingBase implements
      * @param string $offset
      * @return $this
      */
-    public function offset(string $offset)
+    public function offset(int $offset)
     {
         $this->addToQuery($this->offsetParameter($offset));
 
