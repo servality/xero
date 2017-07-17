@@ -58,6 +58,12 @@ A Xero organisation is required to use the API. It's recommended a [demo company
    $xero->contacts()->where('name.contains("Mark")')->get();
 ```
 
+### Xml Helper
+
+This package included and XML Helper class for converting an array to xml.
+
+See [wiki Page](https://github.com/servality/xero/wiki/Xml-Helper) for details.
+
 ## License
 
 Open-sourced software licensed under the MIT license.
