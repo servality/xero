@@ -7,34 +7,44 @@ trait XmlHelper
 {
     public function xml_one_resource(array $array, string $resourceType)
     {
-        $xml_data = new \SimpleXMLElement('<'.$resourceType.'></'.$resourceType.'>');
-        return $this->convert( $array, $xml_data );
+        $xml_data = new \SimpleXMLElement('<' . $resourceType . '></' . $resourceType . '>');
+
+        $xml_data = $this->convert($array, $xml_data);
+
+        return $xml_data->asXML();
     }
 
     public function xml_multiple_resources(array $array, string $resourceType)
     {
-        $resourceCollective = null;
-        if(substr(!$resourceType, -1) == 'y'){
-            $resourceCollective = $resourceType.'s';
+        $resourceCollection = null;
+
+        if (substr(!$resourceType, -1) == 'y') {
+            $resourceCollection = $resourceType . 'ies';
+        } else {
+            $resourceCollection = $resourceType . 's';
         }
-        $xml_data = new \SimpleXMLElement('<'.$resourceCollective.'></'.$resourceCollective.'>');
-        foreach ($array as $resource){
-            $xml_resource = new \SimpleXMLElement('<'.$resourceCollective.'></'.$resourceCollective.'>');
-            $xml_resource->addChild($this->convert($resource, $xml_resource));
-            $xml_data->addChild($xml_resource);
+
+        $xml_data = new \SimpleXMLElement('<' . $resourceCollection . '></' . $resourceCollection . '>');
+
+        foreach ($array as $resource) {
+            $xml_resource = $xml_data->addChild($resourceType);
+            $this->convert($resource, $xml_resource);
         }
-        return $this->convert( $array, $xml_data );
+
+        return $xml_data->asXML();
     }
 
-    private function convert( array $data, \SimpleXMLElement $xml_data ) {
-        foreach( $data as $key => $value ) {
-            if( is_array($value) ) {
+    private function convert(array $data, \SimpleXMLElement $xml_data)
+    {
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
                 $subNode = $xml_data->addChild($key);
                 $this->convert($value, $subNode);
             } else {
-                $xml_data->addChild("$key","$value");
+                $xml_data->addChild("$key", "$value");
             }
         }
+
         return $xml_data;
     }
 }
