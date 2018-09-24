@@ -39,7 +39,7 @@ A Xero organisation is required to use the API. It's recommended a [demo company
 ### Basic usage
 ```php
    $config = [
-       'authentication' => [
+       'oauth' => [
            'consumer_key' => 'appication_consumer_key',
            'consumer_secret' => 'appication_consumer_secret',
            'private_key_file' => 'path/to/private_key.pem',
