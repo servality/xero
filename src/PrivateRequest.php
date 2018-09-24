@@ -6,7 +6,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
-class PrivateRequest{
+class PrivateRequest
+{
 
     protected $baseUri = 'https://api.xero.com/';
 
@@ -27,11 +28,12 @@ class PrivateRequest{
      * @param string $resourcePath
      * @param array $query
      * @param array $additionalHeaders
-     * @param array $data
+     * @param null $data
      * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
 
-    public function sendRequest(string $method, string $resourcePath, array $query = [], array $additionalHeaders, $data = null)
+    public function sendRequest(string $method, string $resourcePath, array $query = [], array $additionalHeaders = null, $data = null)
     {
         $stack = HandlerStack::create();
         $middleware = new Oauth1($this->config['oauth']);
@@ -44,10 +46,10 @@ class PrivateRequest{
 
         $headers = [
             'User-Agent' => $this->config['user_agent'],
-            'Accept'     => 'application/'.$this->config['response'],
+            'Accept' => 'application/' . $this->config['response'],
         ];
 
-        if($method == 'POST'){
+        if ($method == 'POST') {
             $postHeaders = [
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'Encoding' => 'UTF-8'
@@ -56,7 +58,7 @@ class PrivateRequest{
             $headers = array_merge($headers, $postHeaders);
         }
 
-        if($additionalHeaders){
+        if ($additionalHeaders) {
             $headers = array_merge($headers, $additionalHeaders);
         }
 
@@ -64,7 +66,7 @@ class PrivateRequest{
             'xml' => $data
         ];
 
-        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query, 'form_params'=> $formParameters]);
+        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query, 'form_params' => $formParameters]);
 
         return $response;
     }

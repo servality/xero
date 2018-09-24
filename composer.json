@@ -14,7 +14,8 @@
   "require": {
     "php": ">7.0.0",
     "guzzlehttp/guzzle": "^6.2",
-    "guzzlehttp/oauth-subscriber": "^0.3.0"
+    "guzzlehttp/oauth-subscriber": "^0.3.0",
+    "ext-simplexml": "*"
   },
   "autoload": {
     "psr-4": {
