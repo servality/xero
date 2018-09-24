@@ -34,17 +34,34 @@ trait XmlHelper
         return $xml_data->asXML();
     }
 
-    private function convert(array $data, \SimpleXMLElement $xml_data)
+    private function convert(array $data, \SimpleXMLElement $xml_data, $arrayItemName = "")
     {
         foreach ($data as $key => $value) {
+            if (is_int($key)) {
+                $key = $arrayItemName;
+            }
             if (is_array($value)) {
                 $subNode = $xml_data->addChild($key);
-                $this->convert($value, $subNode);
+                $this->convert($value, $subNode, $this->depluralise($key));
             } else {
                 $xml_data->addChild("$key", "$value");
             }
         }
 
         return $xml_data;
+    }
+
+    private function depluralise($string)
+    {
+        if (substr($string, -3) == "ies") {
+            $string = rtrim($string, 'ies');
+            return $string . 'y';
+
+        } else if (substr($string, -1) == "s") {
+            $string = rtrim($string, 's');
+            return $string;
+        } else {
+            return $string;
+        }
     }
 }
