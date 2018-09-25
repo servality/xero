@@ -8,7 +8,6 @@ use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 class PrivateRequest
 {
-
     protected $baseUri = 'https://api.xero.com/';
 
     private $config;
@@ -27,7 +26,7 @@ class PrivateRequest
      * @param string $method
      * @param string $resourcePath
      * @param array $query
-     * @param array $additionalHeaders
+     * @param array|null $additionalHeaders
      * @param null $data
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -35,8 +34,10 @@ class PrivateRequest
 
     public function sendRequest(string $method, string $resourcePath, array $query = [], array $additionalHeaders = null, $data = null)
     {
+        $contentType = $this->config['content_type'];
         $stack = HandlerStack::create();
         $middleware = new Oauth1($this->config['oauth']);
+
         $stack->push($middleware);
 
         $client = new Client([
@@ -49,9 +50,9 @@ class PrivateRequest
             'Accept' => 'application/' . $this->config['response'],
         ];
 
-        if ($method == 'POST') {
+        if ($method == 'POST' | $method == 'PUT') {
             $postHeaders = [
-                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Content-Type' => $contentType,
                 'Encoding' => 'UTF-8'
             ];
 
@@ -62,11 +63,23 @@ class PrivateRequest
             $headers = array_merge($headers, $additionalHeaders);
         }
 
-        $formParameters = [
-            'xml' => $data
+        $requestOptions = [
+            'auth' => 'oauth',
+            'headers' => $headers,
+            'query' => $query,
         ];
 
-        $response = $client->request($method, $resourcePath, ['auth' => 'oauth', 'headers' => $headers, 'query' => $query, 'form_params' => $formParameters]);
+        if ($method == 'POST' | $method == 'PUT') {
+            if ($contentType == 'application/x-www-form-urlencoded') {
+                $requestOptions = array_merge($requestOptions, ['form_params' => ['xml' => 'data']]);
+            } else if ($contentType == 'application/json') {
+                $requestOptions = array_merge($requestOptions, ['json' => $data]);
+            } else if ($contentType == 'application/xml') {
+                $requestOptions = array_merge($requestOptions, ['body' => $data]);
+            }
+        }
+
+        $response = $client->request($method, $resourcePath, $requestOptions);
 
         return $response;
     }

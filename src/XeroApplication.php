@@ -65,7 +65,8 @@ class XeroApplication
             "signature_method" => Oauth1::SIGNATURE_METHOD_RSA
         ],
         'response' => 'json', //json or xml
-        'user_agent' => '' //name of application
+        'user_agent' => '', //name of application
+        'content_type' => 'application/xml' // application/xml | application/json | application/x-www-form-urlencoded
     ];
 
     /**
