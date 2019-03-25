@@ -44,6 +44,7 @@ trait XmlHelper
                 $subNode = $xml_data->addChild($key);
                 $this->convert($value, $subNode, $this->depluralise($key));
             } else {
+                $value = htmlspecialchars($value);
                 $xml_data->addChild("$key", "$value");
             }
         }
